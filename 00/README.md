@@ -1,11 +1,10 @@
-
-
 # 과제 00: Django tutorial
 
 ## 제출
 - 제출 기한: 23. 09. 20(수) 23:59:59
 - 제출 방법
   - 과제 진행한 Python project 폴더를 [./assignment](./assignment/) 폴더에 첨부해주세요.
+  - 해당 repository를 fork하여 작업한 후, Pull Request를 날려주세요.
 
 ## 내용
 - [Django Tutorial (Writing your first Django app, part 1 ~ part 8)](https://docs.djangoproject.com/en/4.2/intro/tutorial01/)
@@ -17,7 +16,7 @@
 - 제출 기한: 23. 09. 22(금) 23:59:59
 - 제출 방법
   - 각 토픽 별로, 완성물을 확인할 수 있는 스크린샷을 적절히 찍어 [./flip_learning](./flip_learning/) 폴더에 첨부해주세요.
-  - 해당 레포지토리에 Pull Request를 날려주세요.
+  - 해당 repository를 fork하여 작업한 후, Pull Request를 날려주세요.
 
 ## 필수 수강
 - [웹 퍼블리싱 시작하기](https://www.codeit.kr/topics/intro-to-web-publishing?pathSlug=python-fullstack-developer&categoryId=6482cda0014b184405fe33b1): Django를 이용해 간단한 웹 사이트를 띄워볼 예정입니다. HTML 문법에 익숙해지세요.

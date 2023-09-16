@@ -1,0 +1,6 @@
+{% load static %}
+<h2>{{menu.name}}</h2>
+{{menu.description}}<br>
+{{menu.price}}
+<img src = {% get_static_prefix %}{{menu.img_path}} />
+<a href = "/foods/menu/">돌아가기</a>

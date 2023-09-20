@@ -19,8 +19,9 @@ TBD
   - 해당 repository를 fork하여 작업한 후, Pull Request를 날려주세요.
 
 ## 필수 수강
+X
+
+## 선택 수강
 - [SQL로 하는 데이터 관리](https://www.codeit.kr/topics/data-management-using-sql?pathSlug=sql-database-for-developers&categoryId=62c288e9672c77328d2aa4a7)
 - [객체 지향 프로그래밍이란?](https://www.codeit.kr/topics/what-is-oop?pathSlug=object-oriented-programming-python&categoryId=62c288e9672c77328d2aa4a7)
 
-## 선택 수강
-TBD

@@ -11,8 +11,8 @@
   - Pull request 내용에, 접속 가능한 웹페이지 링크를 담아주세요.
 
 ## 내용
-- requirements: page title, 이름, 내용, github, instagram 링크는 본인의 링크로 변경되어야 합니다.
 - 의도: 간단한 html로 된 웹사이트를 배포해보며, 프로젝트를 유저에게 배포하는 과정을 익힙니다.
+- requirements: page title, 이름, 내용, github 링크는 본인의 링크로 변경되어야 합니다.
 - 배포 플랫폼은 자유지만, [render.com](https://render.com)을 권장합니다.
   - 간편하게 github repository와 프로젝트 배포를 연동할 수 있습니다.
   - render.com 설정 참고: ![render.com 설정](./resources/render.com%20배포%20참고.png)

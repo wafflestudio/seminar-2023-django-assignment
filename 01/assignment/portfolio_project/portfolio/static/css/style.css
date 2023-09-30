@@ -67,7 +67,7 @@
 /* SECTION NO 1 */
 
 .section-1 {
-    background-color: #F2F2F2;
+    background-color: #CBF6EE;
     height: 450px;
     padding: 0px;
 }
@@ -1065,7 +1065,7 @@
 
 .section-7 {
     padding: 170px 0px 170px 0px;
-    background-image: url(../images/footer-img.jpg);
+    background-image: url(../images/footer-img.png);
     background-position: top;
     background-size: cover;
     position: relative;

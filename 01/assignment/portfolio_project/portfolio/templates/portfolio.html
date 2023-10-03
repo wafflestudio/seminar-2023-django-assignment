@@ -1,0 +1,141 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <link rel="shortcut icon" href="{% static "images/favicon-portfolio.png" %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>손정우 자기소개 페이지</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+            integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+            integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <script src="js/nav.js"></script>
+</head>
+
+<body>
+<!-- Navbar Start -->
+<nav id="navbar" class="black navbar navbar-expand-lg fixed-top">
+    <!-- Brand -->
+    <a id="nav-logo" class="navbar-brand" href="{{ request.path }}">손정우</a>
+
+</nav>
+<!-- Navbar End -->
+
+<main class="container-fluid main p-0">
+    <!-- SECTION NO 1 -->
+    <section class="container-fluid section-1">
+        <div class="row section-1-inner">
+            <div class="col section-1-inner-col">
+                <div class="image-frame mx-auto my-5" style='background-image: url("{% static "images/profile-image.jpg" %}")'>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SECTION NO 2 -->
+    <section id="about-me" class="container-fluid section-2">
+        <div class="row">
+            <div class="col text-center">
+                <div class="primary-heading">
+                     <span class="fw-bold primary-heading-bold">손정우</span> 서울대 통계학과 학부생
+                </div>
+                <div class="paragraph mx-auto mt-2">
+                    <p>노는 게 제일 좋아!</p>
+                    <p>운동하고 맛있는 거 먹는 게 최고 행복</p>
+                    <p>졸업하고 뭐하고 싶은지 잘 모르겠다.. 이것저것 해봐야지</p>
+
+                </div>
+                <a type="button" class="section-2-button fw-bold">더 읽어보기</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SECTION NO 3 -->
+    <section class="container-fluid section-3">
+        <div class="row section-3-inner">
+            <div class="col-lg-6 section-3-inner-col-left text-center">
+                <div class="primary-heading section-3-heading text-lg-end">
+                    I Am A <span class="fw-bold">ROOKIE</span>
+                </div>
+                <div class="section-3-image-left text-lg-end">
+                    <img src="{% static "images/Section-3-image-1.jpg" %}" class="img-fluid sec3-images sec3-img-left"
+                         alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 section-3-inner-col-right text-center mt-5 mt-lg-0">
+                <div class="section-3-image-right text-lg-start">
+                    <img src="{% static "images/Section-3-image-2.jpg" %}" class="img-fluid sec3-images sec3-img-right"
+                         alt="">
+                </div>
+                <div class="section-3-button-right text-lg-start">
+                    <button class="sec3-btn-right text-uppercase fw-bold" onclick="location.href='#'">
+                        더 알아보기
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="background-section-3"></div>
+    </section>
+
+
+    <!-- SECTION NO 7 -->
+    <section class="container-fluid section-7">
+        <div class="row section-7-inner mx-auto text-center">
+            <div class="col">
+                <div class="section-7-text">
+                    내 링크를 구경하세요
+                </div>
+                <div class="section-7-icons">
+                    <a href="https://github.com/jwson337" target="_blank" class="social-icons"><i
+                            class="bi bi-github icons"></i></a>
+                    <a href="https://www.instagram.com/jeongwoo.hand/" target="_blank" class="social-icons"><i
+                            class="bi bi-instagram icons"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION NO 8 -->
+    <footer class="container-fluid footer">
+        <!-- Divider -->
+        <hr style="border-bottom: 1px solid #FFFFFF;">
+
+        <div class="row section-footer-inner">
+            <div class="col">
+                <div class="footer-copyright text-center mt-2">
+                    Django 세미나 화이팅!
+                </div>
+            </div>
+        </div>
+    </footer>
+</main>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset='UTF-8' />
+        <link rel="stylesheet" href={% static 'portfolio/css/style.css' %} />
+        <title>Portfolio Page</title>
+    </head>
+    <body>
+        <!-- Navbar Start -->
+        <nav id="navbar" class="black navbar navbar-expand-lg fixed-top">
+        <!-- Brand -->
+        <a id="nav-logo" class="navbar-brand" href="{{ request.path }}">{{ me.name }}</a>
+
+        </nav>
+        <!-- Navbar End -->
+
+        <main class="container-fluid main p-0">
+            <!-- SECTION NO 1 -->
+            <section class="container-fluid section-1">
+                <div class="row section-1-inner">
+                    <div class="col section-1-inner-col">
+                        <div class="image-frame mx-auto my-5" style='background-image: url("{% get_static_prefix %}{{ me.profile_image_source }}")'>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION NO 2 -->
+            <div class="container-fluid section-2">
+                 <div class="text-center">
+                    <h2>{{me.title}}</h2>
+                    {{me.content | linebreaksbr }}
+                    <br />
+                    <br />
+                    <a href={{me.github_link}}>Github</a>
+                 </div>
+            </div>
+        </main>
+    </body>
+</html>

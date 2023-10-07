@@ -1,5 +1,5 @@
 # 과제 01: 포트폴리오 사이트 배포해보기
-[Demo page](https://portfolio-project-narayo9.onrender.com/)
+[Demo page](http://django-test-env.eba-pvcdptuj.ap-northeast-2.elasticbeanstalk.com/)
 
 ![이미지](./resources/portfolio_website.png)
 
@@ -13,7 +13,7 @@
 ## 내용
 - 의도: 간단한 html로 된 웹사이트를 배포해보며, 프로젝트를 유저에게 배포하는 과정을 익힙니다.
 - requirements: page title, 이름, 내용, github 링크는 본인의 링크로 변경되어야 합니다.
-- 배포 플랫폼은 [AWS Elastic Beanstalk]() 을 사용합니다.
+- 배포 플랫폼은 AWS Elastic Beanstalk 을 사용합니다.
   - [AWS 문서](https://docs.aws.amazon.com/ko_kr/elasticbeanstalk/latest/dg/create-deploy-python-django.html) 참조. 
   - AWS 문서에 있어서는 ChatGPT 참고를 적극 권장드려요.
   - [RDS 데이터베이스를 연결](https://docs.aws.amazon.com/ko_kr/elasticbeanstalk/latest/dg/create-deploy-python-rds.html) 하시면 좋습니다.

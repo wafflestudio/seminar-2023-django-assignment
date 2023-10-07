@@ -13,9 +13,10 @@
 ## 내용
 - 의도: 간단한 html로 된 웹사이트를 배포해보며, 프로젝트를 유저에게 배포하는 과정을 익힙니다.
 - requirements: page title, 이름, 내용, github 링크는 본인의 링크로 변경되어야 합니다.
-- 배포 플랫폼은 자유지만, [render.com](https://render.com)을 권장합니다.
-  - 간편하게 github repository와 프로젝트 배포를 연동할 수 있습니다.
-  - render.com 설정 참고: ![render.com 설정](./resources/render.com%20배포%20참고.png)
+- 배포 플랫폼은 [AWS Elastic Beanstalk]() 을 사용합니다.
+  - [AWS 문서](https://docs.aws.amazon.com/ko_kr/elasticbeanstalk/latest/dg/create-deploy-python-django.html) 참조. 
+  - AWS 문서에 있어서는 ChatGPT 참고를 적극 권장드려요.
+  - [RDS 데이터베이스를 연결](https://docs.aws.amazon.com/ko_kr/elasticbeanstalk/latest/dg/create-deploy-python-rds.html) 하시면 좋습니다.
 
 # 플립러닝 01: Django CRUD / Django 유저 기능 구현하기
 

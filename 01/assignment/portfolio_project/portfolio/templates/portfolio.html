@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>안녕하세요, 왜 오셨나요</title>
+    <title>백창인 포트폴리오</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"></script>
@@ -34,14 +34,14 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-    <script src="js/nav.js"></script>
+    <script src="{% static "js/nav.js" %}"></script>
 </head>
 
 <body>
 <!-- Navbar Start -->
 <nav id="navbar" class="black navbar navbar-expand-lg fixed-top">
     <!-- Brand -->
-    <a id="nav-logo" class="navbar-brand" href="{{ request.path }}">김찬욱</a>
+    <a id="nav-logo" class="navbar-brand" href="{{ request.path }}">백창인</a>
 
 </nav>
 <!-- Navbar End -->
@@ -63,17 +63,20 @@
         <div class="row">
             <div class="col text-center">
                 <div class="primary-heading">
-                    이렇게 <span class="fw-bold primary-heading-bold">안생김</span>
+                    nuagenic <span class="fw-bold primary-heading-bold">백창인</span>
                 </div>
+                <br><br>
                 <div class="paragraph mx-auto mt-2">
-                    <p>사람은 피고, 청춘의 노년에게서 더운지라 봄바람이다. 눈이 원질이 날카로우나 살 더운지라 보이는 그들은 위하여서. 산야에 위하여서 옷을 모래뿐일 꾸며 동력은 밥을
-                        봄바람이다.</p>
-                    <p>어디 때까지 아니더면, 이상이 끓는 꾸며 우리의 청춘이 있다. 작고 설산에서 갑 스며들어 있는 천하를 장식하는 심장은 같이, 피다. 것이다.보라, 그들은 꽃이 부패뿐이다. 곧
-                        가치를 오아이스도 것이다.</p>
-                    <p>풍부하게 길을 무엇을 그들을 봄바람이다. 굳세게 주며, 영원히 이것이다. 청춘의 품었기 가지에 이상의 가장 때문이다. 가는 못할 옷을 그들은 인생에 인간은 못하다 뜨거운지라,
-                        때문이다.</p>
+                    <p>nuagenic은 '구름'을 뜻하는 프랑스어 <b>nuage</b>와 '~을 생성하는'을 뜻하는 접미사 <b>-genic</b>을 합친 단어입니다.</p>
+                    <p>구름처럼 흘러가며 살다가, 적당한 때에 비를 내릴 줄 아는 사람이 되고 싶습니다.</p>
+                    <p>구름은 언제는 글이 되고, 언제는 영화가 되고, 이제는 웹이 되려 합니다.</p>
                 </div>
-                <a type="button" class="section-2-button fw-bold">더 읽어보기</a>
+                <a type="button" class="section-2-button fw-bold toggleLink">더 읽어보기</a>
+                <br><br>
+                <p class="hiddenText" style="display: none;">서울대학교 언론정보학과, 연합전공 정보문화학, 미학과</p>
+                <p class="hiddenText" style="display: none;">2021 시집 <b>구름의 변증법</b> 출판 </p>
+                <p class="hiddenText" style="display: none;">2023 영화 <b>THE MOVERS</b> 연출</p>
+                <p></p>
             </div>
         </div>
     </section>
@@ -84,7 +87,7 @@
         <div class="row section-3-inner">
             <div class="col-lg-6 section-3-inner-col-left text-center">
                 <div class="primary-heading section-3-heading text-lg-end">
-                    I Am <span class="fw-bold">ROOKIE</span>
+                    MY <span class="fw-bold">WORKS</span>
                 </div>
                 <div class="section-3-image-left text-lg-end">
                     <img src="{% static "images/Section-3-image-1.jpg" %}" class="img-fluid sec3-images sec3-img-left"
@@ -112,13 +115,15 @@
         <div class="row section-7-inner mx-auto text-center">
             <div class="col">
                 <div class="section-7-text">
-                    내 링크를 구경하렴
+                    더 많은 정보가 궁금하다면?
                 </div>
                 <div class="section-7-icons">
-                    <a href="https://github.com/narayo9" target="_blank" class="social-icons"><i
+                    <a href="https://github.com/nuagenic" target="_blank" class="social-icons"><i
                             class="bi bi-github icons"></i></a>
-                    <a href="https://www.instagram.com/narayo9/" target="_blank" class="social-icons"><i
+                    <a href="https://www.instagram.com/bbaekcloud/" target="_blank" class="social-icons"><i
                             class="bi bi-instagram icons"></i></a>
+                    <a href="https://www.brunch.co.kr/@bbaekcloud/" target="_blank" class="social-icons"><i
+                            class="bi bi-pen icons"></i></a>
                 </div>
             </div>
         </div>
@@ -132,12 +137,13 @@
         <div class="row section-footer-inner">
             <div class="col">
                 <div class="footer-copyright text-center mt-2">
-                    즐거웠어요
+                    2023 와플스튜디오 백창인
                 </div>
             </div>
         </div>
     </footer>
 </main>
+<script src="{% static "js/showText.js" %}" type="text/javascript"></script>
 </body>
 
 </html>

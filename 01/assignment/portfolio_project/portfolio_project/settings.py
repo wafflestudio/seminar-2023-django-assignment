@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure--icknx(a*801j76)!evu@0x_7bq+(&%4aqar-+asqn)znewjej
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['django-env.eba-yrkf9mny.us-west-2.elasticbeanstalk.com']
 
 
 # Application definition
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'portfolio.middleware.HealthCheckMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",

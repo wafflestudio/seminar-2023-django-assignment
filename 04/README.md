@@ -19,8 +19,8 @@ TBD
   - 해당 repository를 fork하여 작업한 후, Pull Request를 날려주세요.
 
 ## 필수 수강
-- [객체 지향 프로그래밍의 4개의 기둥](https://www.codeit.kr/topics/getting-started-with-django?pathSlug=python-fullstack-developer&categoryId=6482cda0014b184405fe33b1)
-- [견고한 객체 지향 프로그래밍](https://www.codeit.kr/topics/solid-principles-of-oop?pathSlug=object-oriented-programming-python&categoryId=62c288e9672c77328d2aa4a7)
+X
 
 ## 선택 수강
-TBD
+- [객체 지향 프로그래밍의 4개의 기둥](https://www.codeit.kr/topics/getting-started-with-django?pathSlug=python-fullstack-developer&categoryId=6482cda0014b184405fe33b1)
+- [견고한 객체 지향 프로그래밍](https://www.codeit.kr/topics/solid-principles-of-oop?pathSlug=object-oriented-programming-python&categoryId=62c288e9672c77328d2aa4a7)

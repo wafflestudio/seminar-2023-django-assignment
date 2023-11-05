@@ -1,10 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends './base.html' %}
 
-</body>
-</html>
+{% block content %}
+  <div class="content-list max-content-width">
+    <div class="header">
+        <h2>Dey-ly Blog에 오신걸 환영합니다!</h2>
+        {% if user.is_authenticated %}
+            <p>안녕하세요 {{ user }}님, 회원님의 이메일은 {{ user.email }}입니다.</p>
+        {% else %}
+            <p>로그아웃된 상태입니다.</p>
+        {% endif %}
+      <a href="{% url 'post-create' %}">글 쓰러가기</a><br>
+    </div>
+
+    <h1>글 모아보기</h1>
+
+    {% if page_obj.object_list %}
+        <div class="post_container">
+            {% for post in page_obj.object_list %}
+
+                <div class="post">
+                    <h2 class="title"> {{post.title}}</h2>
+                    <a href={% url 'post-detail' post.id %}>자세히 보기</a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="paginator">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="first">first</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="prev">prev</a>
+            {% endif %}
+
+            <span>
+                <p>{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}" class="next">next</a>
+                <a href="?page={{page_obj.paginator.num_pages}}" class="last">last</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="blank">
+            <p>글이 없습니다.<br/>첫 글을 작성해주세요.</p>
+        </div>
+    {% endif %}
+  </div>
+{% endblock content %}

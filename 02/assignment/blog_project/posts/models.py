@@ -9,10 +9,9 @@ class User(AbstractUser):
 
 class Post(models.Model):
     title = models.CharField(max_length=50, unique=True,
-                            error_messages={'unique': '같은 제목의 글을 쓸 수 없습니다.'})
+                                error_messages={'unique': '같은 제목의 글을 쓸 수 없습니다.'})
     content = models.TextField()
-    author = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     dt_created = models.DateTimeField(verbose_name="Date Created", auto_now_add=True)
     dt_modified = models.DateTimeField(verbose_name="Date modified", auto_now=True)
 

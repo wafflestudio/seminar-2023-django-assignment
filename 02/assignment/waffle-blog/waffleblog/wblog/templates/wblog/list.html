@@ -1,0 +1,19 @@
+<navbar>
+    <a href="{% url 'index' %}">메인 화면</a>
+</navbar>
+
+<br>
+<br>
+<br>
+
+<h2>
+    <table>
+        {% for obj in object_list %}
+        <tb>
+            <a href="{% url 'detail' obj.id %}">
+                <p>{{obj.title}}</p>
+            </a>
+        </tb>
+        {% endfor %}
+    </table>
+</h2>

@@ -16,6 +16,16 @@ class PostCreateView(CreateView):
 
     def get_success_url(self):
         return reverse('post-detail', kwargs={'pk': self.object.id})
+
+    def post(self, request, *args, **kwargs):
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect(post.get_absolute_url())
+        return self.get(request, *args, **kwargs)
+
 class PostListView(ListView):
     model = Post
     ordering = ['-dt_created']

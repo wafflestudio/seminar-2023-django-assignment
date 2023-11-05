@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>세부 내용</title>
+</head>
+
+<h2>글 세부 내용들</h2>
+
+{% if user.is_authenticated %}
+   <span>
+      <p>{{user.get_username}} 으로 로그인되었습니다. </p>
+      <a href="{% url 'logout' %}">로그아웃</a>
+   </span>
+
+{% else %}
+   <span>
+      현재 비회원 상태입니다.
+      <a href="{% url 'login'%}">로그인</a>을 하여 게시물을 작성&수정하거나 댓글을 작성하세요.
+   </span>
+{% endif %}
+<br>
+<a href="{% url 'post_list' %}">메인으로 돌아가기</a>
+<br>
+<a href="{% url 'post_create' %}">새 글 쓰기</a>
+<br><br>
+
+<h2>본문</h2>
+<h3>{{object.title}}</h3>
+
+<p>{{object.description}}</p>
+
+<br><span>최초 작성 시각: {{object.created_at}}</span>
+<br><span>수정 시각: {{object.updated_at}}</span>
+<br><span>작성자: {{object.created_by}}</span>
+
+<br>
+{% if user.is_authenticated and user == object.created_by %}
+      <a href="{% url 'post_delete' object.id %}">글 삭제</a> 
+      <a href="{% url 'post_update' object.id %}">글 수정</a>
+{% else %}
+{% endif %}
+
+<br><br><br><h2>댓글 목록</h2>
+{% for comment in comments %}
+   <div>
+      작성자: {{ comment.created_by }}
+      <p>{{ comment.description }}</p>
+      <span>작성 시각: {{ comment.created_at }}
+      <br>수정 시각: {{ comment.updated_at }}
+      </span><br>
+      {% if user.is_authenticated and user == comment.created_by %}
+      <a href= "{% url 'comment_delete' comment.id %}">댓글 삭제</a>   
+      <a href="{% url 'comment_update' comment.id %}">댓글 수정</a>
+      {% else %}
+      {% endif %}
+   </div><br><br>
+   {% empty %}
+      <p>댓글이 아직 없습니다.</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+   <br><h2>댓글 작성</h2>
+   <form method = "post">
+   {%csrf_token%}
+   <div class="description">
+      내용
+      {{ forms.description }}
+   </div>
+   <br>
+   <a href="{% url 'post_detail' object.id %}">댓글 작성 취소</a>
+   <input type = "submit" value = "작성 완료">
+</form>
+
+{% else %}
+{% endif %}

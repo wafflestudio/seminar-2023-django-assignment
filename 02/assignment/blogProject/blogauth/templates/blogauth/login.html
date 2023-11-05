@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 화면</title>
+</head>
+<body>
+
+<h2>로그인 화면입니다</h2>
+<form method="post">
+    {% csrf_token %}
+    <input type="input" name="username" placeholder="아이디">
+    <br>
+    <input type="password" name="password" placeholder="비밀번호">
+    <br>
+    <button type="submit" value="login">로그인</button>
+</form>
+
+<p>아이디가 없으신가요?  <a href="{% url 'signup' %}">회원가입</a></p>
+<p>아이디나 비밀번호 찾기 기능은 구현되지 않았습니다. 주의하세요!</p>
+
+{% if form.errors %}
+    <p>DB에 없는 ID&PW 조합입니다. 아쉬운거죠~</p>
+{% endif %}
+
+</body>
+</html>

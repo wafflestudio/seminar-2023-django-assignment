@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>블로그</title>
+</head>
+
+<h2>블로그의 메인입니다</h2>
+
+{% if user.is_authenticated %}
+   <span>
+      <p>안녕하세요, {{user.get_username}} 님! </p>
+      <a href="{% url 'logout' %}">로그아웃</a>
+   </span>
+
+{% else %}
+   <span>
+      현재 비회원 상태입니다.
+      <br>
+      <a href="{% url 'login'%}">로그인</a>
+      을 하여 게시물을 작성&수정하거나 댓글을 작성하세요.
+   </span>
+{% endif %}
+<br><br><br>
+<h2>글 목록</h2>
+<p>
+{% for post in posts %}
+   <div>
+      <p>
+         - <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+      </p>
+   </div>
+   {% empty %}
+   <h3>아직 글이 없어요..</h3>
+{% endfor %}
+</p>
+<br><br>
+
+{% if user.is_authenticated %}
+   <h2>새 글 쓰기</h2>
+   <span>
+      <a href="{% url 'post_create'%}">링크</a>를 클릭해서 글을 작성하세요.
+   </span>
+
+{% else %}
+{% endif %}

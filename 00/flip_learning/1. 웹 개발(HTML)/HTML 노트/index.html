@@ -1,0 +1,324 @@
+<!DOCTYPE html> <!--이 파일을 HTML 언어로 작성할 것이다 <- 대충 이런 의미 -->
+
+<html>
+   <head> <!-- 사이트 정보(화면에는 안보임) -->
+      <meta http-equiv= "X-UA-Compatible" content= "IE=edge"> <!-- 인터넷 익스플로러에서 최신 표준 모드로 보여주기 -->
+      <meta name= "viewport" content="width=device-width, initial-scale=1.0"> <!-- 모바일 기기에서 보여줄 비율을 조정하기 -->
+      
+      <meta charset = "utf-8"> <!-- 한글 인코딩 -->
+      <meta name= "description" content= "knowin_kyeong_notes">
+
+      <!-- 하단은 소셜 공유 시 미리보기를 조정하는 코드임 -->
+      <meta property = "og:title" content= "경노인의 연습장">
+      <meta property = "og:url" content= "경노인의 연습장">
+      <meta property = "og:type" content= "website">
+      <meta property = "og:image" content= "https://blogfiles.pstatic.net/20140408_248/love_naeil_1396934449528PLPeu_JPEG/%B0%E6%B1%E2%B0%FA%C7%D0%B0%ED1.jpg">
+      <meta property = "og:description" content="경노인의 연습장_공유">
+
+
+      <!-- 링크 태그로 들어오는 사람들한테 폰트를 자동으로 다운받게 할 수 있다.-->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+      <title>HTML 공부한 거</title> <!-- 사이트 제목 설정 -->
+   </head>
+
+   <body style = "padding: 40px 20px"> <!-- 사이트 내용 -->
+      <div>
+         By: 2022-17827 서주원 (juwon0718@snu.ac.kr)<br>
+      </div>
+
+      <div>
+         <h1>내용 정리</h1>
+      </div>
+
+      <div>
+         <h2>0. 완전 기초</h2>
+         <h3>a. 기초적인 문법</h3>
+         <p>
+            &lt;태그&gt;<br>
+            텍스트 뭉탱이(들여쓰기하면 코드 가독성이 좋아짐)<br>
+            &lt;태그&gt;
+         </p>
+         처럼 tag 문법을 사용하면 된다.<br>
+         예를 들어, 문서는  &lt;html&gt; (문서 전체 내용) &lt;/html&gt; 으로 구성되어 있다.
+
+         <h3>b. head 설정</h3>
+         <p>
+            다음과 같이, 굵은 글씨로 표시되는 h1부터 h12까지 다양한 크기의 소제목이 지원되므로 &lt;h1&gt;처럼 가독성을 개선할 수 있다!<br>
+            참고로 h는 heading(제목)이라고 한다.
+         </p>
+
+         <h3>c. 속설</h3>
+         <p>
+            &lt; &gt; 안에 들어간 것을 속성이라고 한다.<br>
+            &lt;.... style = " "&gt; -> style은 속성의 한 예시이다.
+         </p>
+      </div>
+      
+      <div>
+         <h2>1. 단락 넣기</h2>
+         아무 것도 설정하지 않으면 내용 사이 줄 구분이 이루어지지 않음(웹 브라우저가 창 크기가 변할 수 있으므로 항상 이어줌)
+         <p>
+            따라서, 별도로 태그를 활용해서 단락을 넣어야 함: &lt;p&gt; 내용 &lt;/p&gt;
+         </p>
+         <p>
+            이렇게 &lt;p&gt; 태그를 이용해 단락을 넣을 수 있음 
+         </p>
+      </div>
+      
+      <div>
+         <h2>2. 단락 안에서 줄바꿈</h2>
+         <p>
+            원래 이렇게 굉장히 길고 맛없고 읽기 어려운 수능 국어 비문학 킬러문제같이 한줄로 쫙 이어진 단락을..(놀랍게도 한 단락임)
+         </p>
+         다음과 같이 br 태그를 사용하여, 
+         <p>
+            원래 이렇게<br>
+            굉장히 길고 맛없고 읽기 어려운<br>
+            수능 국어 비문학 킬러문제같이 한줄로 쫙 이어진<br>
+            단락을..
+         </p>
+         처럼 바꿀 수 있다. 와!!
+      </div>
+      
+      <div>
+         <h2>3. 하이퍼링크</h2>
+         하이퍼링크는 &lt;a href = "넣고 싶은 링크&gt; 사이트에서 보이는 글자 &lt;/a&gt; 태그를 사용해서 넣을 수 있다.
+         <p> <!-- 아오 링크길이시치 또 너야?-->
+            바로 이렇게: <a href = "https://student.gs.hs.kr/student/login.do?mode=manual&returnUrl=/index.do">수상할 정도로 캐리비안의 해적 OST와 서울사람들 노래가 들리는 곳</a><br><br>
+            (뒷 부분까지 읽고 오면..) html 파일로 링크를 걸 수도 있다.<br>
+            여담: 경기과학고 기숙사 아침 점호시 틀어 주는 노래들이다<br>
+            &lt;a href = "index.html" style = "color: #FFC8C8"&gt;이 문서로 돌아오는 링크&lt;/a&gt; : <a href = "index.html" style = "color: #FFC8C8">이 문서로 돌아오는 링크</a>
+         </p>
+         참고로 이렇게 꺽쇠로 링크를 넣는 걸 HTML 속성이라고 한다
+      </div>
+      
+      <div>
+         <h2>4. 이미지</h2>
+         이미지는 &lt;img src = "넣고 싶은 이미지 주소" &gt; 태그를 사용해서 넣을 수 있다.<br>
+         당연히 같은 디렉토리 내 파일을 불러오는 기능도 있다. &lt;img src = "같은 디렉토리에 존재하는 사진 파일들.확장자"&gt; <- 이렇게
+         <p>
+            바로 이렇게(외부에서):<br>
+            <img src = "https://blogfiles.pstatic.net/20140408_248/love_naeil_1396934449528PLPeu_JPEG/%B0%E6%B1%E2%B0%FA%C7%D0%B0%ED1.jpg"><br>
+            또는 이렇게(같은 디렉토리에서):<br>
+            <img src = "골드사진.png">
+         </p>
+         참고로 이렇게 꺽쇠로 링크를 넣는 걸 HTML 속성이라고 한다<br>
+         img 안에 src 속성이 있다? 뭐 이렇게 이해하라네요
+      </div>
+      
+      <div>
+         <h2>5. Div와 Span</h2> 
+         학교 강좌 사이트를 보면 어떤 영역은 흰색이고 어떤 영역은 파란색이고.. 이렇게 되어 있는데 영역이 구분되어 있으므로 가능한 것이다.<br>
+         영역은 다음과 같이 분리할 수 있다.
+         <p>
+            &lt;div&gt;<br>
+            영역을 새로 지정하고 싶은 내용<br>
+            &lt;/div&gt;
+         </p>
+
+         만약 한 줄의 특정 부분만 영역을 지정해주고 싶으면, 
+         <p>
+            &lt;span&gt;<br>
+            영역을 새로 지정하고 싶은 한 줄의 일부분<br>
+            &lt;/span&gt;
+         </p>
+      
+         <div>
+            대충 이렇게 몇 문장을 정해 div를 사용할 수 있고..
+         </div>
+         대충 엄청 긴 논문 한문장에서 span을 사용해 <span>핵심 키워드</span> 영역을 분리할 수 있다.<br>
+
+         물론 CSS를 적용하지 않으면 때문에 티가 나지 않는다.
+      </div>
+
+      <div>
+         <h2>6. 배경 색</h2>
+         <p>
+            이제 div에 배경 색깔을 넣어줄 수 있다!<br>
+            지정한 div에 대해 &lt;div&gt;를 &lt;div style = "적용될 영역: 색깔"&gt;로 작업이 가능하다.<br>
+         </p>
+         배경색(background-color)을 바꿔야 한다고 가정하자. 그러면 #16진수 RGB, 지정된 용어, rgb()를 사용하여
+
+         <div style = "background-color: cyan">
+            &lt;div style = "background-color: cyan"&gt이나, 
+         </div>
+
+         <div style = "background-color: #C8FFC8">
+            &lt;div style = "background-color: C8FFC8"&gt이나,
+         </div>
+
+         <div style = "background-color: rgb(14, 223, 153)">
+            &lt;div style = "background-color: rgb(14, 223, 153"&gt처럼 해줄 수 있다.
+         </div>
+      
+      </div>
+
+      <div>
+         <h2>7. 글자 색</h2>
+         <p>
+            이제 div에 글자 색깔을 넣어줄 수 있다!<br>
+            배경 색과 비슷하게 지정한 div에 대해 &lt;div&gt;를 &lt;div style = "color: 색깔"&gt;로 작업이 가능하다.<br>
+            참고로, 배경 색과 코드가 중첩될 수 있어 &lt;div&gt;를 &lt;div style = "background-color: 색깔; color: 색깔"&gt;도 된다.<br>
+            놀랍게도 &lt;h1 = style..&gt;, &lt;p = style..&gt;, &lt;body = style...&gt, &lt;a href = "링크" style...&gt;(표시될 글)&lt;/a&gt;도 가능하다!
+         </p>
+
+         <p>
+            예를 들어, 다음 단락의 배경색과 글자 색을 동시에 바꾼다고 하자. 그러면 &lt;div style = "background-color: orange"; "color: blue"&gt로 다음과 같이 
+            <div style = "background-color: orange; color: blue">
+               바로 이렇게 말이죠 
+            </div>
+            가 가능하다.
+         </p>
+
+         <p style = "background-color: lightyellow; color: violet">
+            또는 다음과 같이 다음 링크의 명물인 스팸 급식을 표현할 수도 있다. &lt;a src = "링크" style...&gt;(표시될 글)&lt;/a&gt;로 다음과 같이<br>
+            오늘 아침으로 <a href = "https://student.gs.hs.kr/student/login.do?mode=manual&returnUrl=/index.do" style = "color: pink">스팸</a>이 나왔는데..<br>
+            도 가능한 것이다.<br>
+         </p>
+         <p>
+            여담: 이 멘트는 경기과학고 기숙사 아침 점호 멘트 중 일부이다
+         </p>
+         " "의 위치와 중간 ;의 위치에 주의하면서 적절히 사용하자.
+
+      </div>
+
+      <div>
+         <h2>8. 글꼴</h2>
+         <p>
+            맨날 지겨운 맑은 고딕만 보지 말고 글꼴을 바꾸어 보자.<br>
+            마찬가지로 &lt;div style = "color: 색깔; font: "&gt;처럼 ;을 사용해 sytle에 이어 붙일 수 있다.<br><br>
+            그런데 만약 한글이라 영어 글꼴이 적용이 안되고 이 사태가 난다면? font 대신 font-family를 써 주자<br>
+            이 친구는 font-family: A, B, C,..를 해 주면 A 폰트가 안 되는 문자는 B 폰트를 적용하고..가 된다!
+         </p>
+
+         <p>
+            예를 들어, 다음 단락의 글꼴을 바꾼다고 하자. 그러면 &lt;div style = "color: magenta font-family = "&gt;로 다음과 같이 
+            <div style = "color: magenta; font-family: Times New Roman, 돋움">
+               dksl sk gksrmf zlqhemrk rhwkdskTdj, 어라 이게 한영키가 다시 고쳐졌네
+            </div>
+            가 가능하다.
+         </p>
+
+         <p>
+            근데, 만약 이렇게 하면 나만 글꼴을 가지고 방문자가 글꼴이 없을 때 "로컬 이슈"가 생기지 않을까?<br>
+            다른 사람들에게 폰트를 적용하려면<br>
+            <p>
+               &lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;<br>
+               &lt;link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet"&gt;
+            </p>
+            과 같은 구분을 head를 선언할 때 안에 같이 넣어줘야 한다.<br>
+            이를 직접 찾는 것은 귀찮으므로, Google Font 형님한테 맡기면 된다. 폰트를 찾고, Select를 눌러 뜨는 &lt;link&gt;를 사용하여..
+
+            <p style = "color: blueviolet; font-family: 'Noto Sans KR'">
+               이런 식으로 적용하면 된다. (귀찮게도, 사이에 공백이 있기 때문에 'Noto Sans KR'로 처리해줘야 함)
+            </p>
+
+            참 쉽죠?
+         </p>
+
+      </div>
+
+      <div>
+         <h2>9. 글자 크기</h2>
+         <p>
+            글자 크기도 sytle에서 바꿀 수 있다.
+            마찬가지로 &lt;div style = "color: 색깔; font-size: 20; ... "&gt;처럼 ;을 사용해 sytle에 이어 붙일 수 있다.<br>
+            글자가 커지는 건 font-size, 굵어지는 건 font-weight이다.
+         </p>
+
+         다음과 같이 &lt;p style = " ... ; font-size: 20"&gt;를 단락에 적용하고, 강조할 부분을 &lt; span style = "font-weight: 700"&gt;로 처리하면..
+         <p style = "color:rgb(153, 28, 149); font: 'Noto Sans KR'; font-size: 20">
+            초반에 힘이 약했던 나서스는
+            <span style = "font-weight: 700">
+               1차 타워를 밀 때쯤 q 스택이 많이 쌓여 그럴듯한 딜이 나오지만, 
+            </span>
+            극후반이 되면 이동기가 없어 힘이 빠진다.
+         </p>
+         같은 그럴 듯한 강조를 할 수 있다.
+         
+      </div>
+
+      <div>
+         <h2>10. 글자 정렬</h2>
+         <p>
+            글자를 정렬하는 것도 sytle에서 바꿀 수 있다.
+            &lt;div style = " ... ; font-align : 위치"&gt;처럼 앞선 예제와 동일하게 ;을 사용하여 sytle에 이어 붙일 수 있다.<br>
+            위치는 left, center, right가 존재한다. 각각 왼쪽/중앙/오른쪽 정렬이다.
+         </p>
+
+         <p>
+            <br><br>
+            <div style = "text-align: center"> 
+               이렇게 잘 중앙으로 정렬된 글이.. "text-align: center"<br>
+            </div>
+
+            <div style = "text-align: left"> 
+               왼쪽으로 몰아넣을 수 있고.. "text-align: left"<br>
+            </div>
+
+            <div style = "text-align: right"> 
+               마찬가지로 오른쪽도 가능하다. "text-align: right"
+            </div>
+         </p>
+         
+      </div>
+
+      <div>
+         <h2>11. 문서의 크기</h2>
+         <p>
+            사진과 같은 개체부터 문단의 크기까지 width, height를 사용하여 조절할 수 있다.
+            &lt;div style = " ... ; width = 크기; height = 크기"&gt;처럼 sytle에 이어 붙일 수 있다.<br>
+            크기에는 고정된 값인 px, 비율인 %가 들어갈 수 있다. 각각 460px와 100%와 같은 표현이 가능하다.<br>
+            참고로 사진에 이어 붙이려면 &lt;img scr = "링크" style = "width: ...&gt; 처럼 src와 width 사이에 공백( , 가 아님!!!!)으로 분리해주면 된다.
+         </p>
+
+         예를 들어서, 아까 적었던 글자 정렬을 활용하면 다음과 같은 표현을 할 수 있다. 전체 문단의 width를 100px로 설정해..
+
+         <p style = "text-align: left; width: 100px">
+            <div style = "color:darkblue; width: 100%">
+               &lt; div style = "color:aqua; width: 100% &gt;가 적용되었습니다.<br>
+            </div>
+
+            <div style = "color:darkblue; width: 80%">
+               &lt; div style = "color:aqua; width: 80% &gt;가 적용되었습니다.<br>
+            </div>
+
+            <div style = "color:darkblue; width: 60%">
+               &lt; div style = "color:aqua; width: 60% &gt;가 적용되었습니다.<br>
+            </div>
+
+            <div style = "color:darkblue; width: 40%">
+               &lt; div style = "color:aqua; width: 40% &gt;가 적용되었습니다.
+            </div>
+         </p>
+         라고 할 수 있다. 창 크기를 크게 줄이면 차이점이 보일 것이다.  
+      </div>
+
+      <div>
+         <h2>12. 문서의 여백</h2>
+         <p>
+            &lt;div style = " ... ; padding: ypx, xpx";처럼 sytle에 이어 붙일 수 있다.<br>
+            <span style = "font-weight: 700">
+               ypx는 세로 여백 크기, xpx는 가로 여백 크기이다.
+         </p>
+         본 문서의 전체에서는 세로 여백 40, 가로 여백 20으로 설정하였다. 즉,  &lt;body style = "padding: 40px 20px"&gt;가 들어간 것이다.
+
+      </div>
+      
+      <br><br><br><br><br>
+
+      <div>
+         <h1>
+            패치 노트
+         </h1>
+         <h2>1.1 이름과 실제가 다른 것</h2>
+         <p>
+            문구가 설명하는 것과 실제 코드가 달랐던 현상을 수정하였습니다. <span style = "font-weight: 700">23.09.20 12:13</span>
+         </p>
+      </div>
+   </body>
+
+</html>

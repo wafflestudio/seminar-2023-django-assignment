@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>DEYLY BLOG</title>
+</head>
+<body>
+    {% block header %}
+        <ul class="navbar">
+        {% if user.is_authenticated %}
+          <li><a href="{% url 'account_logout' %}">로그아웃</a></li>
+        {% else %}
+          <li><a href="{% url 'account_login' %}">로그인</a></li>
+          <li><a href="{% url 'account_signup' %}">회원가입</a></li>
+        {% endif %}
+      </ul>
+    {% endblock header %}
+    {% block content %}{% endblock content %}
+
+</body>
+</html>

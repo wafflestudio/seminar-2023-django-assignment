@@ -1,0 +1,11 @@
+<h2>일기 목록 페이지</h2>
+
+<ul>
+    {% for obj in object_list %}
+    <li>
+        <h4><a href="/page/{{obj.id}}">{{obj.title}} | {{obj.dt_created}}</a></h4>
+
+    </li>
+    {% endfor %}
+</ul>
+<p><a href="{% url 'main-page'%}">돌아가기</a></p>

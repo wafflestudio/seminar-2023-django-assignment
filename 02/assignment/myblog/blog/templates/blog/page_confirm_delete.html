@@ -1,0 +1,18 @@
+
+{% block content %}
+<div class="wrap-delete">
+    <div class="delete-box">
+        <div class="note-info">
+            <h2><span class="note-title">{{object.title}}</span></h2>
+            <span class="note-date">{{object.dt_created}}</span>
+        </div>
+        <p>게시글을 지울까요?</p>
+        <form method='post'>{% csrf_token %}
+            <ul>
+                <li><input type="submit" value="지우기"></li>
+                <li><a href="{% url 'page-detail' object.id%}">남기기</a></li>
+            </ul>
+        </form>
+    </div>
+</div>
+{% endblock content %}

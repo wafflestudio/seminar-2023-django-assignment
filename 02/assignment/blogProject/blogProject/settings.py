@@ -25,9 +25,7 @@ SECRET_KEY = 'django-insecure-g+7cv9)-7oug+!u!+w3gq0k_=kf7(*0#texf@o&ue8bf_n08pq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'asgmt2-env.eba-kzzn6hwn.us-west-2.elasticbeanstalk.com',
-]
+ALLOWED_HOSTS = ['asgmt2-env.eba-64unqkih.ap-northeast-2.elasticbeanstalk.com']
 
 AUTH_USER_MODEL='blogauth.User' # Use custom user model (Inheritanced by AbstractUser)
 
@@ -81,26 +79,30 @@ WSGI_APPLICATION = 'blogProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-"""DATABASES = {
+
+"""
+import pymysql
+pymysql.install_as_MySQLdb()
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', # engine: mysql
+        'NAME' : 'awseb-e-eu84pm2qgx-stack-awsebrdsdatabase-mjgjnolxsf5e', # DB Name
+        'USER' : 'juwon0718', # DB User
+        'PASSWORD' : 'juwon2003!', # Password
+        'HOST': 'awseb-e-eu84pm2qgx-stack-awsebrdsdatabase-mjgjnolxsf5e.cxx9xavvzkb1.us-west-2.rds.amazonaws.com',
+        'PORT': '3306', # 데이터베이스 포트
+        'OPTIONS':{
+            'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
+    }
+}"""
+
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}"""
-
-import os
-
-if 'RDS_HOSTNAME' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ['RDS_DB_NAME'],
-            'USER': os.environ['RDS_USERNAME'],
-            'PASSWORD': os.environ['RDS_PASSWORD'],
-            'HOST': os.environ['RDS_HOSTNAME'],
-            'PORT': os.environ['RDS_PORT'],
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -138,6 +140,7 @@ USE_TZ = False # Don't Using Default TimeZone
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

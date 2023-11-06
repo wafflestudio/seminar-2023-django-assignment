@@ -17,6 +17,10 @@
             <a href="{% url 'page-update' object.id %}">수정하기</a>
             <a href="{% url 'main-page'%}">My blog</a>
         </div>
+        {% else %}
+        <div class="notetext-btn">
+            <a href="{% url 'index'%}">돌아가기</a>
+        </div>
         {% endif %}
         <hr>
         <div class="comments">

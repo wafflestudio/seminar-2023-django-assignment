@@ -25,6 +25,6 @@ urlpatterns = [
     path('password/change/',CustomPasswordChangeView.as_view(),
          name="account_password_change"),
     #path('signup/', TemplateView.as_view(template_name='account/signup.html'), name='account_signup'),
-
     path('', include('allauth.urls')),
+
 ]

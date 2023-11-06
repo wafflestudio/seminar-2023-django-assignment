@@ -1,11 +1,26 @@
 <h2>일기 목록 페이지</h2>
-
+{% if request.user.is_authenticated %}
 <ul>
     {% for obj in object_list %}
+
+    {% if obj.author == request.user.username %}
     <li>
         <h4><a href="/page/{{obj.id}}">{{obj.title}} | {{obj.dt_created}}</a></h4>
 
     </li>
+    {% endif %}
     {% endfor %}
 </ul>
+{% else %}
+<ul>
+    {% for obj in object_list %}
+    <li>
+        <h4><a href="/page/{{obj.id}}">{{obj.title}} | {{obj.dt_created}}</a></h4>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endif %}
+
+
 <p><a href="{% url 'main-page'%}">돌아가기</a></p>

@@ -9,10 +9,10 @@
 
 {% if user.is_authenticated %}
     <p>안녕하세요, {{user}}님!</p>
+    <a href="{% url 'post-create' %}">글쓰러 가기</a>
 {% else %}
     <p>로그아웃된 상태입니다.</p>
 {% endif %}
-<a href="{% url 'post-create' %}">글쓰러 가기</a>
 <br><br>
 {% for post in posts %}
 	<a href="{% url 'post-detail' post.id %}">{{ post.title }}</a>

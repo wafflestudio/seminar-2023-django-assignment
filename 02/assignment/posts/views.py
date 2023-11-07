@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Post, Comment
 
+def gomainpage(request):
+    redirect('')
 
 def index(request):
     postings = Post.objects.all()
     contents = dict()
     contents["posts"] = postings
+    contents["user"] = request.user
     return render(request, "posts/index.html", context=contents)
 
 
@@ -19,7 +23,7 @@ def detailView(request, post_id):
     contents["comments"] = Comment.objects.filter(post_id=post_id)
     return render(request, 'posts/post_detail.html', context=contents)
 
-
+@login_required
 def createView(request):
     if request.method == 'POST':
         title = request.POST['title']
@@ -28,7 +32,7 @@ def createView(request):
         return redirect(f"/posts/{newPost.id}/")
     return render(request, "posts/post_form.html")
 
-
+@login_required
 def updateView(request, post_id):
     if request.method == 'POST':
         uppost = Post.objects.get(id = post_id)
@@ -42,6 +46,7 @@ def updateView(request, post_id):
         contents["post_o"] = post
     return render(request, "posts/post_update.html", context=contents)
 
+@login_required
 def deleteView(request, post_id):
     post = Post.objects.get(id=post_id)
     if request.method == 'POST':
@@ -50,6 +55,7 @@ def deleteView(request, post_id):
     else:
         return render(request, 'posts/post_confirm_delete.html', {'post': post})
 
+@login_required
 def commentUpdate(request, post_id, comment_id):
     upcomment = Comment.objects.get(id=comment_id)
     if request.method == 'POST':
@@ -61,6 +67,8 @@ def commentUpdate(request, post_id, comment_id):
         contents["comment_o"] = upcomment
         contents["pid"] = post_id
     return render(request, 'posts/comment_update.html', context=contents)
+
+@login_required
 def commentDelete(request, post_id, comment_id):
     comment = Comment.objects.get(id=comment_id)
     if request.method == 'POST':

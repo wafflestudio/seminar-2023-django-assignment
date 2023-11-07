@@ -55,6 +55,8 @@ MIDDLEWARE = [
 
 LOGIN_URL = "/auth/login"
 
+LOGIN_REDIRECT_URL = "/blog/posts/"
+
 ROOT_URLCONF = 'blogProject.urls'
 
 TEMPLATES = [

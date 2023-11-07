@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from blog.forms import PostForm, CommentForm
 from blog.models import Post, Comment
@@ -57,3 +57,10 @@ class PostUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('post_detail', kwargs={'pk': self.object.id})
+
+
+class PostDeleteView(DeleteView):
+    model = Post
+
+    def get_success_url(self):
+        return reverse('post_list')

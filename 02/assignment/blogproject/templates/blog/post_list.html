@@ -1,0 +1,27 @@
+<h1>장고 Week 2 과제 블로그(황경서)</h1>
+{% if user.is_authenticated %}
+  {{user.username}}님 안녕하세요
+  <a href = '{% url "accounts:logout" %}'>로그아웃</a>
+{% else %}
+  <a href = '{% url "accounts:login" %}' >로그인</a>
+  <a href = '{% url "accounts:signup" %}' >회원가입</a>
+{% endif %}
+<br>
+<br>
+
+{% if posts %}
+<h3>글 목록</h3>
+    <ul>
+    {% for post in posts %}
+        <li><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>블로그에 글이 없습니다.</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+    <a href = '{% url "blog:post-write" %}' >새 글 작성</a>
+{% else %}
+    글을 작성하려면 로그인하세요.
+{% endif %}

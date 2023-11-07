@@ -11,6 +11,9 @@ def index(request):
 
 def detailView(request, post_id):
     posting = Post.objects.get(id=post_id)
+    if request.method == 'POST':
+        comment_content = request.POST["content"]
+        Comment.objects.create(post=posting, content=comment_content, author=request.user)
     contents = dict()
     contents["post"] = posting
     contents["comments"] = Comment.objects.filter(post_id=post_id)
@@ -47,3 +50,21 @@ def deleteView(request, post_id):
     else:
         return render(request, 'posts/post_confirm_delete.html', {'post': post})
 
+def commentUpdate(request, post_id, comment_id):
+    upcomment = Comment.objects.get(id=comment_id)
+    if request.method == 'POST':
+        upcomment.content = request.POST['content']
+        upcomment.save()
+        return redirect(f"/posts/{post_id}")
+    else:
+        contents = dict()
+        contents["comment_o"] = upcomment
+        contents["pid"] = post_id
+    return render(request, 'posts/comment_update.html', context=contents)
+def commentDelete(request, post_id, comment_id):
+    comment = Comment.objects.get(id=comment_id)
+    if request.method == 'POST':
+        comment.delete()
+        return redirect(f'/posts/{post_id}')
+    else:
+        return render(request, 'posts/comment_confirm_delete.html', {'comment':comment})

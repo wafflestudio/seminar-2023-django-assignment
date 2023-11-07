@@ -1,0 +1,7 @@
+<p>{{comment.content}}</p>
+<p>삭제하시겠습니까?</p>
+<form method="POST">{% csrf_token %}
+    <div>
+        <input type="submit" value="삭제하기">
+    </div>
+</form>

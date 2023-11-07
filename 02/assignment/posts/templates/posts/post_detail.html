@@ -4,7 +4,20 @@
 <h3>{{ post.content }}</h3>
 <br><br>
 <h6>최종 수정 시간: {{ post.dt_updated|date:"Y년 n월 j일" }}</h6>
+<a href="{% url 'post-update' post.id %}">수정하기</a>
+<a href="{% url 'post-delete' post.id %}">삭제하기</a>
 <br><h4>댓글들</h4>
+
+
+<form method="POST">
+    {% csrf_token %}
+    <label>
+        <input type="text" name="content" maxlength="100" placeholder="댓글 작성하기(100자 이내)">
+    </label>
+    <button type = 'submit'>댓글 작성하기</button>
+</form>
+
+
 {% for comment in comments %}
     <p>{{ comment.author }} | {{ comment.content }} |
     {% if comment.dt_created == comment.dt_updated %}
@@ -13,6 +26,8 @@
          {{ comment.dt_updated|date:" (Y.n.j. 수정)" }}
     {% endif %}
     </p>
+    <a href="{% url 'comment-update' post.id comment.id %}">수정하기</a>
+    <a href="{% url 'comment-delete' post.id comment.id %}">삭제하기</a>
 {% empty %}
     <p>아직 댓글이 없어요!</p>
 {% endfor %}

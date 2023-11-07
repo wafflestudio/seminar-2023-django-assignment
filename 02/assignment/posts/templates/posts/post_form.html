@@ -1,0 +1,15 @@
+<h1>글 작성하기</h1>
+<form method="POST">
+    {% csrf_token %}
+    <div>
+        <label>
+            <input type="text" name="title" maxlength="50" placeholder="제목 작성하기(50자 이내)">
+        </label>
+    </div>
+    <div>
+        <label>
+            <textarea name="content" cols="80" rows="20" placeholder="본문 작성하기"></textarea>
+        </label>
+    </div>
+    <button type="submit">글 작성 완료하기</button>
+</form>

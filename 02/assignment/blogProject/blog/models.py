@@ -9,6 +9,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey("auth.User", on_delete=models.CASCADE)
+    modified_at = models.DateTimeField(null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse("post_detail", kwargs={"pk": self.pk})

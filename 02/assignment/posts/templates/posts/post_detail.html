@@ -1,0 +1,20 @@
+<h1>{{ post.title }}</h1>
+<h5>작성자: {{ post.author }} | 작성일: {{ post.dt_created|date:"Y년 n월 j일" }}</h5>
+<br><br>
+<h3>{{ post.content }}</h3>
+<br><br>
+<h6>최종 수정 시간: {{ post.dt_updated|date:"Y년 n월 j일" }}</h6>
+<br><h4>댓글들</h4>
+{% for comment in comments %}
+    <p>{{ comment.author }} | {{ comment.content }} |
+    {% if comment.dt_created == comment.dt_updated %}
+         {{ comment.dt_created|date:" (Y.n.j. 작성)" }}
+    {% else %}
+         {{ comment.dt_updated|date:" (Y.n.j. 수정)" }}
+    {% endif %}
+    </p>
+{% empty %}
+    <p>아직 댓글이 없어요!</p>
+{% endfor %}
+<br>
+<a href="{% url 'index' %}">메뉴로 돌아가기</a>

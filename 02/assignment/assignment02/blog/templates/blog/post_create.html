@@ -1,0 +1,19 @@
+{% extends "blog/main.html" %}
+
+{% block content %}
+<div>
+    <form method="post">{% csrf_token %}
+        <h3>Title</h3>
+        <p>{{form.title}}</p>
+        {% for error in form.title.errors %}
+            <p>{{error}}</p>
+        {% endfor %}
+        <h3>Content</h3>
+        <p>{{form.content}}</p>
+        {% for error in form.content.errors %}
+            <p>{{error}}</p>
+        {% endfor %}
+        <button type="submit" name="submit">submit</button>
+    </form>
+</div>
+{% endblock content %}

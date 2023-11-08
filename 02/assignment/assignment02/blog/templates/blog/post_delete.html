@@ -1,0 +1,17 @@
+{% extends "blog/main.html" %}
+{% load static %}
+
+{% block content %}
+    <div>
+        <p>Do you really want to delete this post?</p>
+    </div>
+    
+    <div>
+        <form action="{% url 'post-delete' post.id %}" method="POST"> {% csrf_token %}
+            <button type="submit" name="Yes">Yes</button>
+            <button type="submit" name="No">No</button>
+        </form>
+    </div>
+
+
+{% endblock content %}

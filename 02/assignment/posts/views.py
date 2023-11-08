@@ -1,16 +1,23 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Post, Comment
+from django.views.generic import ListView
 
 def gomainpage(request):
-    redirect('')
+    redirect('index')
 
-def index(request):
+"""def index(request):
     postings = Post.objects.all()
     contents = dict()
     contents["posts"] = postings
     contents["user"] = request.user
-    return render(request, "posts/index.html", context=contents)
+    return render(request, "posts/index.html", context=contents)"""
+class IndexView(ListView):
+    model = Post
+    template_name = "posts/index.html"
+    context_object_name = "posts"
+    paginate_by = 5
+    ordering = ["-dt_created"]
 
 
 def detailView(request, post_id):

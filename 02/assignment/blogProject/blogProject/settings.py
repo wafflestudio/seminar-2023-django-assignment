@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3_0qo+hdo4oq^j!_-o85(3p$uo9t5!w1(k8p=yi0gm&j^1uhb$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['Waffle-blog-env.eba-yh83vcyb.ap-northeast-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['blogProject-env.eba-c2pdbmvy.us-west-2.elasticbeanstalk.com']
 
 
 # Application definition
@@ -83,13 +83,9 @@ WSGI_APPLICATION = 'blogProject.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': os.environ['DB_HOST'],
-        'PORT': os.environ['DB_PORT'],
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 

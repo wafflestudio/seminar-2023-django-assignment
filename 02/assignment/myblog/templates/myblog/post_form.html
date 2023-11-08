@@ -1,0 +1,43 @@
+{% extends "myblog_base/base_with_navbar.html" %}
+
+{% block content %}
+<main class="site-body">
+  <div class="main-header">
+    <div class="content">
+      <div class="fg"></div>
+      <h1> My Blog 홈페이지</h1>
+    </div>
+  </div>
+
+  <div class="content-list max-content-width">
+    <div class="header">
+      <h2>포스트 목록</h2>
+      <a class="cp-ic-button circle newreview" href="{% url 'post-create' %}">포스트 작성</a>
+    </div>
+
+    <form method="post">{% csrf_token %}
+      {% if user.is_authenticated %}
+        <div class="submit">
+          <input type="submit" value="작성완료">
+        </div>
+      {% else %}
+      {% endif %}
+      
+      <div class="editor">
+          <p>{{ form.title }}</p>
+          {% for error in form.title.errors %}
+              <p class="error">{{ error }}</p>
+          {% endfor %}
+          <h3>내용</h3>
+          <p>{{ form.content }}</p>
+          {% for error in form.content.errors %}
+              <p class="error">{{ error }}</p>
+          {% endfor %}
+      </div>
+  </form>
+    <div class="btn_back">
+        <a href={%  url 'post-list' %}>돌아가기</a>
+    </div>
+  </div>
+</main>
+{% endblock content %}

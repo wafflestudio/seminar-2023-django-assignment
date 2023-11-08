@@ -1,0 +1,17 @@
+{% extends "myblog_base/base_with_navbar.html" %}
+
+
+
+<!-- post_detail content-->
+{% block content %}
+    <div class="confirm">
+        <p class="title">[{{ post.title }}]</p>
+        <p>삭제하시겠습니까?</p>
+        <form method="POST">{% csrf_token %}
+            <div class="confirm_btn">
+                <input type="submit" value="삭제하기">
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,9 @@
+{% extends "./base.html" %}
+
+{% block post_container %}
+    <p> Delete For Real?</p>
+    <form method="POST"> {% csrf_token %}
+        <input type="submit" value="Delete">
+    </form>    
+{% endblock post_container %}
+```

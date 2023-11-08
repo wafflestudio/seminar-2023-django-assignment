@@ -1,0 +1,4 @@
+<form method="post"> {% csrf_token %} {% comment %} 교차 사이트 요청 위조 방지 {% endcomment %}
+  {{form.as_ul}}
+  <input type="submit" value="Submit">
+</form>

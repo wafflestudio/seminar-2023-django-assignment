@@ -1,0 +1,18 @@
+{% extends "./base.html" %}
+
+{% block post_container %}
+  <h2>{{ post.title }}</h2>
+  <hr>
+  <div> Created At: {{ post.created_at }} </div>
+  {% if post.updated_at != post.created_at%}
+    <div> Updated At: {{ post.updated_at }} </div>
+  {% endif %}
+  <hr>
+  <p>{{ post.content|linebreaksbr }}</p>
+  <hr>
+  <a href={% url 'post_update' post.id %}> Edit </a><br>
+  <a href={% url 'post_delete' post.id %}> Delete </a><br>
+  <hr>
+  <a href={% url 'posts_list' %}> Back to Posts List </a>
+
+{% endblock post_container %}

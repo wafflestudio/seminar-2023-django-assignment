@@ -87,10 +87,10 @@ WSGI_APPLICATION = 'blog_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blog_project_db',
+        'NAME': 'blog_project_db_2',
         'USER': 'admin',
-        'PASSWORD': 'Darang237!',
-        'HOST': 'blog-project-db.condpgpxqpxr.ap-northeast-2.rds.amazonaws.com',
+        'PASSWORD': 'Darang237!!',
+        'HOST': 'blog-porject-db-2.condpgpxqpxr.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"

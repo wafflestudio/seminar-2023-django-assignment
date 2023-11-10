@@ -8,7 +8,6 @@ Django==4.2.7
 django-allauth==0.58.1
 idna==3.4
 mysql-connector-python==8.2.0
-mysqlclient==2.2.0
 oauthlib==3.2.2
 protobuf==4.21.12
 pycparser==2.21

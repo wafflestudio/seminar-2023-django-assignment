@@ -3,7 +3,7 @@
 /* NAVBAR */
 
 #navbar {
-    font-family: Pretendard serif;
+    font-family: 'Pretendard Variable', serif;
     background-size: cover;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 15px 20px;
@@ -14,7 +14,7 @@
     font-size: 24px;
     color: #000000;
     text-transform: uppercase;
-    font-weight: bolder;
+    font-weight: 300;
 }
 
 .sticky {
@@ -58,7 +58,7 @@
 /* MAIN */
 
 .main {
-    font-family: Pretendard serif;
+    font-family: 'Roboto', sans-serif;
     background-color: #FFFFFF;
     font-size: 16px;
 }
@@ -130,7 +130,7 @@
 .section-2 {
     margin: 60px 0 0 0;
     padding: 100px 0px 50px 0px;
-    font-family: Pretendard serif;
+    font-family: 'Pretendard Variable', serif;
 }
 
 .primary-heading {
@@ -227,7 +227,7 @@
 /* SECTION NO 3 */
 
 .section-3 {
-    font-family: Pretendard serif;
+    font-family: 'Pretendard Variable', serif;
     padding: 50px 0px 50px 0px;
     position: relative;
 }
@@ -261,7 +261,7 @@
 }
 
 .sec3-btn-right {
-    font-family: Pretendard serif;
+    font-family: 'Pretendard Variable', serif;
     padding: 10px 30px;
     border: 1px solid #000000;
     color: #000000;
@@ -393,7 +393,7 @@
 }
 
 .sec4-btn {
-    font-family: Pretendard serif;
+    font-family: 'Pretendard Variable', serif;
     color: #FFFFFF;
     background-color: #000000;
     letter-spacing: 2px;
@@ -526,7 +526,7 @@
 }
 
 .section-5-text {
-    font-family: Pretendard serif;
+    font-family: 'Pretendard Variable', serif;
     font-size: 42px;
     font-weight: 300;
     line-height: 1.6;
@@ -733,7 +733,7 @@
 }
 
 .sec5-btn {
-    font-family: Pretendard serif;
+    font-family: 'Pretendard Variable', serif;
     color: #FFFFFF;
     background-color: #000000;
     letter-spacing: 2px;
@@ -817,7 +817,7 @@
 }
 
 .sec6-btn {
-    font-family: Pretendard serif;
+    font-family: 'Pretendard Variable', serif;
     color: #000000;
     letter-spacing: 2px;
     cursor: pointer;
@@ -829,7 +829,7 @@
 }
 
 .sec6-btn-see-all {
-    font-family: Pretendard serif;
+    font-family: 'Pretendard Variable', serif;
     color: #FFFFFF;
     background-color: #000000;
     letter-spacing: 2px;
@@ -976,7 +976,7 @@
 .contact-form-div {
     background-color: #F8F9FA;
     padding: 50px !important;
-    font-family: Pretendard serif;
+    font-family: 'Pretendard Variable', serif;
 }
 
 #custom-input1,
@@ -1092,7 +1092,7 @@
 
 .section-7-text {
     font-size: 24px;
-    font-family: Pretendard serif;
+    font-family: 'Pretendard Variable', serif;
     font-weight: 400;
     line-height: 1.6;
     color: #FFFFFF;

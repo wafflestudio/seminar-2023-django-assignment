@@ -1,0 +1,57 @@
+{% extends "blog/main.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'blog/css/main.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <div>
+        <h2>{{post.title}}</h2>
+    </div>
+    <div font="24pt">
+        by {{post.auther}}
+    </div>
+    <div>
+        created in {{post.created_date}}
+    </div>
+    <div>
+        last updated in {{post.updated_date}}
+    </div>
+    <br>
+    <div>
+        {{post.content|linebreaks}}
+    </div>
+    <div>
+        {% if user == post.auther %}
+            <a href="{% url 'post-update' post.id%}">edit</a>
+            <a href="{% url 'post-delete' post.id%}">delete</a>
+        {% endif %}   
+    </div>
+    <div>
+        <a href="{% url 'post-list' %}"> return to list</a>
+    </div>
+    
+    <div>
+        {% for comment in comments %}
+            <div>
+                <p><h3>{{comment.auther}}</h3></p>
+                <p>{{comment.content}}</p>
+                <p class="additional">{{comment.created_date}}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div>
+        {% if user.is_authenticated %}
+            <form method="post">{% csrf_token %}
+                <p>{{form.content}}</p>
+                {% for error in form.content.errors %}
+                    <p>{{error}}</p>
+                {% endfor %}
+                <button type="submit" name="submit">submit</button>
+            </form>
+        {% endif %}
+    </div>
+
+{% endblock content %}

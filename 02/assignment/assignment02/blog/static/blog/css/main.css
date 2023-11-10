@@ -1,0 +1,31 @@
+
+th, td {
+    text-align: left;
+}
+  
+
+table {
+    width : 600px;
+}
+
+.title_th, .title_td {
+    
+    width : 300px;
+}
+
+a {
+    text-decoration: none
+}
+
+.additional {
+    text-align: right;
+}
+
+.narrow-select { 
+    width: 10px; 
+}
+
+#id_content {
+    width: 400px;
+    height: 50px;
+}

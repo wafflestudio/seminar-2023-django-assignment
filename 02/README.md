@@ -23,3 +23,5 @@
 ## 필수 수강
 - [Django 모델 파헤치기](https://www.codeit.kr/topics/django-understanding-models?pathSlug=django-web-development&categoryId=)
 - [Django REST Framework](https://www.codeit.kr/topics/django-rest-framework?pathSlug=django-web-development&categoryId=62c288ea672c77328d2aa4ad)
+
+URL: http://waffleblog-env.eba-daxutvf7.us-west-2.elasticbeanstalk.com/

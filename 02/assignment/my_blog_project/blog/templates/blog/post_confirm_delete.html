@@ -1,0 +1,5 @@
+<form method="POST">{% csrf_token %}
+    <p>정말로 지우시겠습니까?</p>
+    <a href="{% url 'post-detail' post.id %}">취소</a>
+    <input type="submit" value="삭제">
+</form>

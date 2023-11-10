@@ -1,0 +1,11 @@
+{% extends 'blog_base/base_with_header.html' %}
+
+{% block title %}Post Create{% endblock title %}
+
+{% block content %}
+    <form method="POST">{% csrf_token %}
+        {{ form.as_p }}
+        <a href="{% url 'post-list' %}">취소</a>
+        <input type="submit" value="작성">
+    </form>
+{% endblock content %}

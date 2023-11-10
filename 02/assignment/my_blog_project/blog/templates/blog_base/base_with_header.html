@@ -1,0 +1,15 @@
+{% extends 'blog_base/base.html' %}
+
+{% block header %}
+    <header>
+        <div style="width:100%; background-color:#BBDEFB;">
+            {% if user.is_authenticated %}
+                <a href="{% url 'account_logout' %}">로그아웃</a>
+            {% else %}
+                <a href="{% url 'account_login' %}">로그인</a>
+                <a href="{% url 'account_signup' %}">회원가입</a>
+            {% endif %}
+            <br/><br/>
+        </div>
+    </header>
+{% endblock header %}

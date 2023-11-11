@@ -1,0 +1,50 @@
+{% extends "myblog_base/base_with_navbar.html" %}
+
+{% block content %}
+<main class="site-body">
+  <div class="main-header">
+    <div class="content">
+      <div class="fg"></div>
+      <h1> My Blog 홈페이지</h1>
+    </div>
+  </div>
+
+  <div class="content-list max-content-width">
+    <div class="header">
+      <h2>포스트 목록</h2>
+      <a class="cp-ic-button circle newreview" href="{% url 'post-create' %}">포스트 작성</a>
+    </div>
+
+    {% if page_obj.object_list %}
+        <div class="post_container">
+            {% for post in page_obj.object_list %}
+                
+                <div class="post"><a href={% url 'post-detail' post.id %}>
+                    <h2 class="title"> {{post.title}}</h2>
+                    <p class="date">{{post.dt_created}}</p> </a>
+                </div> 
+            {% endfor %}
+        </div>
+        <div class="paginator">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="first">first</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="prev">prev</a>
+            {% endif %}
+
+            <span>
+                <p>{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}" class="next">next</a>
+                <a href="?page={{page_obj.paginator.num_pages}}" class="last">last</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="blank">
+            <p>보여줄 글이 없어요<br/>첫 글을 작성해보면 어떨까요?</p>
+        </div>
+    {% endif %}
+  </div>
+</main>
+{% endblock content %}

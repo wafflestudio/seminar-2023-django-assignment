@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-)vo2uu%$57nzw@-8(!#=96h9k441^==&b+kil91tdr_hkijb27
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['blogproject.eba-mhd23d9f.us-west-2.elasticbeanstalk.com','172.17.0.1','127.0.0.1','172.31.0.32','172.31.15.131', '172.31.46.70','172.31.15.131',"http://127.0.0.1:8000/"]
+ALLOWED_HOSTS = ['blogproject.eba-icdmpsdi.us-west-2.elasticbeanstalk.com','172.17.0.1','127.0.0.1','172.31.0.32','172.31.15.131', '172.31.46.70','172.31.15.131',"http://127.0.0.1:8000/"]
 
 # Application definition
 
@@ -104,9 +104,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 

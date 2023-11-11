@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/styles/style.css' %}">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>My Awesome Blog (in Django!)</title>
+    
+</head>
+<body>
+    
+    {% block header %}
+
+        <style>
+                .card{
+                    box-shadow: 0 16px 48px #E3E7EB;
+                }
+        
+        </style>
+        
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4 float-right ">
+            <div class="card my-4">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'account_logout' %}">Logout</a>
+                {% else %}
+                    <a href="{% url 'account_login' %}">Login</a>
+                    <a href="{% url 'account_signup' %}">Signup</a>
+                {% endif %}
+            </div>
+        </div>
+
+    {% endblock header %}
+    {% block content %}{% endblock content %}
+
+</body>
+</html>

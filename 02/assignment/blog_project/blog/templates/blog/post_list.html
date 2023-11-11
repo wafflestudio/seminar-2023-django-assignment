@@ -1,0 +1,52 @@
+{% extends 'blog_base/base.html' %}
+
+
+
+{% block content %}
+  <div class="content-list max-content-width">
+    <div class="header">
+        <h2>Welcome to my awesome (django-based) blog 😋</h2>
+        <p class="text-light">You can create, read, update, and delete posts on this amazing Django web application! ;) &nbsp
+        <p class="text-light">Oh, and of course: you can signup, login, and logout! &nbsp
+        {% if user.is_authenticated %}
+            <p>Hello, {{ user }}!</p>
+            <a href="{% url 'post-create' %}">Create</a><br>
+        {% else %}
+            <p>You are logged out. Please login to create, edit, and comment.</p>
+        {% endif %}
+    </div>
+
+    <h1>Posts</h1>
+
+    {% if page_obj.object_list %}
+        <div class="post_container">
+            {% for post in page_obj.object_list %}
+
+                <div class="post">
+                    <h2 class="title"> {{post.title}}</h2>
+                    <a href={% url 'post-detail' post.id %}>Click to view</a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="paginator">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="first">first</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="prev">prev</a>
+            {% endif %}
+
+            <span>
+                <p>{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}" class="next">next</a>
+                <a href="?page={{page_obj.paginator.num_pages}}" class="last">last</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="blank">
+            <p>Looks like there are no posts yet.<br/>Be the first to create one!</p>
+        </div>
+    {% endif %}
+  </div>
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% extends 'blog_base/base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="title">{{post.title}}</h1>
+  </div>
+
+    <div class="content">
+        <p> Author: {{ post.author }}</p> <br>
+        <p class="text">{{post.content|linebreaksbr}}</p> <br>
+        <p class="date_md">Last modified: <span>{{post.dt_modified}}</span></p>
+    </div>
+
+    {% if user.is_authenticated %}
+      <div class="comment-form">
+        <form method="post"> {% csrf_token %}
+          {{ comment_form.as_p }}
+          <button type="submit">Post comment</button>
+        </form>
+      </div>
+    {% else %}
+        <p> To post a comment, please login. </p>
+    {% endif %}
+
+    {% for comment in comments %}
+      <div class="comment">
+        <p>{{ comment.content }}</p>
+        <p>Author: {{ comment.author }} | Last modified: {{ comment.dt_updated }}</p>
+      </div>
+    {% endfor %}
+
+      <div class="btn">
+        <div class="btn_list"><a href="{% url 'post-list' %}">Back To Home</a></div>
+
+          {% if user.is_authenticated and user == post.author %}
+            <div class="btn_modify"><a href="{% url 'post-update' post.id %}">Edit</a></div>
+            <div class="btn_delete"><a href="{% url 'post-delete' post.id %}">Delete</a></div>
+          {% endif %}
+
+      </div>
+
+{% endblock content %}

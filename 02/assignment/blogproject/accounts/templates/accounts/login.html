@@ -1,0 +1,9 @@
+<h1>로그인</h1>
+<form action="{% url 'login' %}" method="POST">
+    {% csrf_token %}
+    <label for="username">아이디</label>
+    <input type="text" name="id">
+    <label for="password">비밀번호</label>
+    <input type="text" name="password">
+    <input type="submit">
+  </form>

@@ -1,0 +1,12 @@
+<h1>게시물 삭제 확인</h1>
+<p>아래 게시물을 삭제하시겠습니까?</p>
+
+<p><strong>{{ post.title }}</strong></p>
+<p>{{ post.content }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">삭제</button>
+</form>
+
+<a href="/posts/">취소</a>

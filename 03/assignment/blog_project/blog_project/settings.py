@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'posts',
 ]
 
 MIDDLEWARE = [
@@ -81,6 +82,18 @@ DATABASES = {
     }
 }
 
+# Auth settings
+
+AUTH_USER_MODEL = 'posts.User'
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+ACCOUNT_SIGNUP_REDIRECT_URL = 'post-list'
+LOGIN_REDIRECT_URL = 'post-list'
+ACCOUNT_LOGOUT_ON_GET = True
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

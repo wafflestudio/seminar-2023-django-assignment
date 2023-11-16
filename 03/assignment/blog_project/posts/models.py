@@ -15,19 +15,20 @@ class Post(models.Model):
     created_at = models.DateTimeField(verbose_name="Date created", auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="Date updated", auto_now=True)
 
-    # def get_absolute_url(self):
-    #     return reverse('post-detail', kwargs={'pk': self.pk})
+    def get_absolute_url(self):
+         return reverse('post-detail', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return self.title, self.description[:300]
+        return {self.title + self.description[:300]}
 
 
 class Comment(models.Model):
-    description = models.TextField(max_length=500, blank=False)
+    content = models.TextField(max_length=500, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    is_upated = (created_at != updated_at)
 
     def __str__(self):
-        return self.description
+        return self.content

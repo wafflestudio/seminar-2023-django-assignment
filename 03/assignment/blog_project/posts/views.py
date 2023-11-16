@@ -1,14 +1,12 @@
-from rest_framework import serializers
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status
+from django.views.generic import RedirectView
 from rest_framework.generics import get_object_or_404, ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.views import APIView
 from rest_framework.pagination import CursorPagination
 
 from .models import User, Post, Comment
-from .serializers import UserSerializer, PostSerializer, CommentSerializer
+from .serializers import UserSerializer, PostListSerializer, PostDetailSerializer, CommentSerializer
 
+class IndexRedirectView(RedirectView):
+    pattern_name = 'post-list'
 class PostCursorPagination(CursorPagination):
     page_size = 5
     ordering = '-created_at'
@@ -18,16 +16,16 @@ class CommentCursorPagination(CursorPagination):
     page_size = 10
     ordering = '-created_at'
 
-class PostList(ListCreateAPIView):
+class PostListAPI(ListCreateAPIView):
      queryset = Post.objects.all()
-     serializer_class = PostSerializer
+     serializer_class = PostListSerializer
      pagination_class = PostCursorPagination
 
-class PostDetail(RetrieveUpdateDestroyAPIView):
+class PostDetailAPI(RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
-    serializer_class = PostSerializer
+    serializer_class = PostDetailSerializer
 
-class CommentList(ListCreateAPIView):
+class CommentListAPI(ListCreateAPIView):
     serializer_class = CommentSerializer
     pagination_class = CommentCursorPagination
 

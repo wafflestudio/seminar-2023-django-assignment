@@ -4,17 +4,24 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import get_object_or_404, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView
-from rest_framework.pagination import PageNumberPagination
+from rest_framework.pagination import CursorPagination
 
 from .models import User, Post, Comment
 from .serializers import UserSerializer, PostSerializer, CommentSerializer
 
-class PostPageNumberPagination(PageNumberPagination):
+class PostCursorPagination(CursorPagination):
+    page_size = 5
+    ordering = '-created_at'
+
+
+class CommentCursorPagination(CursorPagination):
     page_size = 10
+    ordering = '-created_at'
+
 class PostList(ListCreateAPIView):
      queryset = Post.objects.all()
      serializer_class = PostSerializer
-     pagination_class = PostPageNumberPagination
+     pagination_class = PostCursorPagination
 
 class PostDetail(RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
@@ -22,6 +29,7 @@ class PostDetail(RetrieveUpdateDestroyAPIView):
 
 class CommentList(ListCreateAPIView):
     serializer_class = CommentSerializer
+    pagination_class = CommentCursorPagination
 
     def get_queryset(self):
         post = get_object_or_404(Post, pk=self.kwargs.get('pk'))

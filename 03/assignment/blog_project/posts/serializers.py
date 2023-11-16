@@ -5,7 +5,7 @@ from .models import User, Post, Comment
 from django.core.validators import MaxLengthValidator, MinLengthValidator
 
 
-class PostSerializer(serializers.ModelSerializer):
+class PostDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ['id', 'title', 'description', 'created_by', 'created_at', 'updated_at']
@@ -17,8 +17,25 @@ class PostSerializer(serializers.ModelSerializer):
         ]
 
 
+class PostListSerializer(serializers.ModelSerializer):
+    description_summary = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Post
+        fields = ['id', 'title', 'description_summary', 'created_by', 'created_at', 'updated_at']
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Post.objects.all(),
+                fields=['title'],
+            )
+        ]
+
+    def get_description_summary(self, obj):
+        return obj.description[:300]
+
+
 class CommentSerializer(serializers.ModelSerializer):
-    post = PostSerializer(read_only=True)
+    post = PostDetailSerializer(read_only=True)
 
     class Meta:
         model = Comment

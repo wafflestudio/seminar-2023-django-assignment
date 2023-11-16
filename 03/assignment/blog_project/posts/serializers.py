@@ -22,7 +22,7 @@ class PostListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'title', 'description_summary', 'created_by', 'created_at', 'updated_at']
+        fields = ['id', 'title', 'description_summary', 'created_by']
         validators = [
             UniqueTogetherValidator(
                 queryset=Post.objects.all(),

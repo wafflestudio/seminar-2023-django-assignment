@@ -15,8 +15,8 @@ class Post(models.Model):
     created_at = models.DateTimeField(verbose_name="Date created", auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="Date updated", auto_now=True)
 
-    def get_absolute_url(self):
-         return reverse('post-detail', kwargs={'pk': self.pk})
+    # def get_absolute_url(self):
+    #      return reverse('post-detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.description[:300]

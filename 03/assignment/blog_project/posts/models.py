@@ -1,10 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.urls import reverse
+from rest_framework.authtoken.models import Token
+
 
 # Create your models here.
 class User(AbstractUser):
-    pass
+    username = models.CharField(max_length=30, unique=True)
+    password = models.CharField(max_length=128, verbose_name='password')
+    def __str__(self):
+        return self.username
+
+@receiver(post_save, sender=User)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
 
 
 class Post(models.Model):
@@ -15,11 +27,8 @@ class Post(models.Model):
     created_at = models.DateTimeField(verbose_name="Date created", auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="Date updated", auto_now=True)
 
-    # def get_absolute_url(self):
-    #      return reverse('post-detail', kwargs={'pk': self.pk})
-
     def __str__(self):
-        return self.description[:300]
+        return self.title
 
 
 class Comment(models.Model):

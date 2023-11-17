@@ -1,0 +1,62 @@
+<div>
+    <h1>제목 : {{ article.title }}</h1>
+</div>
+
+<h4>
+    <span>
+        작성자 : {{ article.writer.nickname }}
+    </span>
+    <br>
+    <span>
+        작성 날짜 : {{ article.dt_created}} <br>
+        마지막 수정 날짜 : {{ article.dt_modified }}
+    </span>
+</h4>
+
+<h4>
+    {{ article.text }}
+</h4>
+
+<br>
+
+{% if owner == True %}
+    <a href="{% url 'edit' article.id %}">수정하기</a>
+    <br>
+    <br>
+    <h3>
+        <a href="{% url 'delete' article.id %}" color="red">삭제하기</a>
+    </h3>
+{% endif %}
+
+<hr>
+<h3>댓글</h3>
+<hr>
+
+<table>
+    {% for com in comment %}
+        <tb>
+            <h3>닉네임:{{ com.writer }}</h3>
+            <h4>작성시간:{{ com.dt_modified }}</h4>
+
+            <div>
+                {{ com.text }}
+            </div>
+            <br>
+            <br>
+        </tb>
+        <hr>
+    {% endfor %}    
+</table>
+
+<br>
+<br>
+
+{% if user.is_authenticated %}
+    <form action="{% url 'add_comment' article.id %}">
+        <textarea cols=40 rows=5 name="text"></textarea>
+
+        <input type="submit" value="게시">
+    </form>
+{% endif %}
+
+<a href="{% url 'index' %}">메인 화면</a>

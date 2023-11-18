@@ -18,6 +18,11 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
 
+class Tag(models.Model):
+    content = models.TextField(unique=True)
+    def __str__(self):
+        return self.content
+
 
 class Post(models.Model):
     title = models.CharField(max_length=50, unique=True,
@@ -26,6 +31,7 @@ class Post(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(verbose_name="Date created", auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="Date updated", auto_now=True)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
         return self.title
@@ -38,6 +44,8 @@ class Comment(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     is_updated = models.BooleanField(default=False)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
         return self.content
+

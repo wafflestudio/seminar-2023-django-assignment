@@ -1,10 +1,11 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import AnonymousUser
 from django.views.generic import RedirectView
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import PermissionDenied, NotAuthenticated
-from rest_framework.generics import get_object_or_404, ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import get_object_or_404, ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView
 from rest_framework.pagination import CursorPagination
 from rest_framework import permissions, generics, status, viewsets
 from rest_framework.response import Response
@@ -110,10 +111,19 @@ class CommentDetailAPI(RetrieveUpdateDestroyAPIView):
         serializer.save(is_updated=True)
 
 
+class IsNew(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.user == AnonymousUser or request.user.is_staff or request.user.is_superuser:
+            return True
 
-class SignUpView(generics.CreateAPIView):
+        return False
+
+
+class SignUpView(CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
+    permission_classes = [IsNew]
 
 
 class LoginView(APIView):

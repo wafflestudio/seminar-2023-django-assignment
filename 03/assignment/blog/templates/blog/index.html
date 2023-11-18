@@ -15,9 +15,20 @@
     <h1>LARGE 블로그에 오신걸 환영합니다</h1>
     {% if user.is_authenticated %}
         <p>안녕하세요, {{user.nickname}}님!</p>
+        <a href="{% url 'post-create' %}">글 쓰러 가기</a>
         {% else %}
             <p>로그아웃된 상태입니다.</p>
             <p>글을 작성하려면 로그인하세요!</p>
     {% endif %}
+
+    <br><br><br>
+
+    {% for post in posts %}
+    	<a href="{% url 'post-detail' post.id %}">{{ post.title }}</a>
+        <p>ㄴ>{{ post.created_by.nickname }} | {{ post.created_at }}</p>
+    {% empty %}
+    	<a>아직 작성된 글이 없어요!</a>
+    {% endfor %}
+
 </body>
 </html>

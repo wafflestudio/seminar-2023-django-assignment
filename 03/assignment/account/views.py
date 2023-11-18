@@ -66,10 +66,6 @@ def signup_view(request):
                 )
                 login(request, newUser)
                 return redirect('post-index')
-
-            user = signup_form.save()
-            login(request, user)
-            return redirect('post-index')
     else:
         signup_form = SignupForm()
 

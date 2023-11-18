@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }} | LARGE</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <h6>작성자: {{ post.created_by.nickname }}</h6>
+    <h6>작성일: {{ post.created_at }}</h6>
+    {% if post.updated_at != post.created_at %}
+    	<h6>(수정됨) {{ post.updated_at }}</h6>
+    {% endif %}
+    <p>{{ post.description }}</p>
+
+
+    <br><br>
+    {% if post.created_by == user %}
+        <a href="{% url 'post-update' post.id %}">수정하기</a>
+        <a href="{% url 'post-delete' post.id %}">삭제하기</a>
+        <br><br>
+    {% endif %}
+    <a href="{% url 'post-index' %}">메뉴로 돌아가기</a>
+</body>
+</html>

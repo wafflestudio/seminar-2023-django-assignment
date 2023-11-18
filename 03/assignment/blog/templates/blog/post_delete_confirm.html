@@ -5,7 +5,7 @@
     <title>글 삭제 확인 | LARGE</title>
 </head>
 <body>
-    {% if not user == post.created_by %}
+    {% if user != post.created_by and not user.is_superuser %}
         <h3>권한이 없습니다.</h3>
         <h3>작성자만 글을 삭제할 수 있습니다.</h3>
     {% else %}

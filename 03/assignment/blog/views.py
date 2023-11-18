@@ -41,7 +41,7 @@ class PostUpdateView(PermissionRequiredMixin, UpdateView):
     pk_url_kwarg = 'post_id'
 
     def has_permission(self):
-        return self.get_object().created_by == self.request.user
+        return (self.get_object().created_by == self.request.user) or (self.request.user.is_superuser)
 
     def get_success_url(self):
         return reverse('post-detail', kwargs={'post_id': self.object.id})
@@ -53,7 +53,7 @@ class PostDeleteView(PermissionRequiredMixin, DeleteView):
     pk_url_kwarg = 'post_id'
 
     def has_permission(self):
-        return self.get_object().created_by == self.request.user
+        return (self.get_object().created_by == self.request.user) or (self.request.user.is_superuser)
 
     def get_success_url(self):
         return reverse('post-index')

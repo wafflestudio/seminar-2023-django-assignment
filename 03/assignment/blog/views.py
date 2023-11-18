@@ -5,7 +5,7 @@ from django.views.generic import View, ListView, DetailView, CreateView, UpdateV
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from .models import Post, Comment, TagPost, TagComment
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 
 
 class IndexView(ListView):
@@ -19,6 +19,12 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'blog/post_detail.html'
     pk_url_kwarg = 'post_id'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CommentForm()
+        context['comments'] = Comment.objects.filter(post_id=self.object.id)
+        return context
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -57,3 +63,43 @@ class PostDeleteView(PermissionRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse('post-index')
+
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    http_method_names = ['post']
+    model = Comment
+    form_class = CommentForm
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.post = Post.objects.get(id=self.kwargs.get('post_id'))
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('post-detail', kwargs={'post_id': self.kwargs.get('post_id')})
+
+
+class CommentUpdateView(PermissionRequiredMixin, UpdateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = "blog/comment_form.html"
+    pk_url_kwarg = 'comment_id'
+
+    def has_permission(self):
+        return (self.get_object().created_by == self.request.user) or (self.request.user.is_superuser)
+
+    def get_success_url(self):
+        self.object.is_updated = True
+        return reverse('post-detail', kwargs={'post_id': self.object.post.id})
+
+
+class CommentDeleteView(PermissionRequiredMixin, DeleteView):
+    model = Comment
+    template_name = "blog/comment_delete_confirm.html"
+    pk_url_kwarg = 'comment_id'
+
+    def has_permission(self):
+        return (self.get_object().created_by == self.request.user) or (self.request.user.is_superuser)
+
+    def get_success_url(self):
+        return reverse('post-detail', kwargs={'post_id': self.object.post.id})

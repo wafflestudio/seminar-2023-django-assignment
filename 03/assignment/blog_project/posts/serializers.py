@@ -16,20 +16,36 @@ class PostDetailSerializer(serializers.ModelSerializer):
                 fields=['title'],
             )
         ]
+        read_only_fields = [
+            'id',
+            'created_by',
+        ]
 
 
-class PostListSerializer(serializers.ModelSerializer):
-    description_summary = serializers.SerializerMethodField()
+class PostCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'title', 'description_summary', 'created_by']
+        fields = ['id', 'title', 'description', 'created_by']
         validators = [
             UniqueTogetherValidator(
                 queryset=Post.objects.all(),
                 fields=['title'],
             )
         ]
+        read_only_fields = [
+            'id',
+            'created_by',
+        ]
+
+
+class PostListSerializer(serializers.ModelSerializer):
+
+    description_summary = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Post
+        fields = ['id', 'title', 'description_summary', 'created_by']
 
     def get_description_summary(self, obj):
         return obj.description[:300]
@@ -41,6 +57,14 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ['id', 'post', 'created_by', 'created_at', 'updated_at', 'content', 'is_updated']
+
+        read_only_fields = [
+            'id',
+            'created_by',
+            'created_at',
+            'updated_at',
+            'is_updated',
+        ]
 
 
 class UserSerializer(serializers.ModelSerializer):

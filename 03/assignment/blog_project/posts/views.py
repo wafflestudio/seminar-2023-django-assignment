@@ -1,17 +1,17 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from django.views.generic import RedirectView
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.generics import get_object_or_404, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.pagination import CursorPagination
 from rest_framework import permissions, generics, status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser
 from rest_framework.views import APIView
 
 from .models import User, Post, Comment
-from .serializers import UserSerializer, PostListSerializer, PostDetailSerializer, CommentSerializer, LoginSerializer
+from .serializers import UserSerializer, PostListSerializer, PostDetailSerializer, CommentSerializer, PostCreateSerializer
 
 
 class IndexRedirectView(RedirectView):
@@ -25,15 +25,27 @@ class CommentCursorPagination(CursorPagination):
     page_size = 10
     ordering = '-created_at'
 
-class PostListAPI(ListCreateAPIView):
+class PostListAPI(generics.ListCreateAPIView):
      queryset = Post.objects.all()
-     serializer_class = PostListSerializer
      pagination_class = PostCursorPagination
-     authentication_classes = [TokenAuthentication]
-     permission_classes = [IsAuthenticatedOrReadOnly]
+     authentication_classes = [SessionAuthentication, TokenAuthentication]
+     permission_classes = [ IsAdminUser, IsAuthenticatedOrReadOnly]
+
+     def get_serializer_class(self):
+         if self.request.method == 'POST':
+             return PostCreateSerializer
+         return PostListSerializer
 
      def perform_create(self, serializer):
          serializer.save(created_by=self.request.user)
+
+     def get(self, request, *args, **kwargs):
+        print(request.user)
+        print(request.auth)
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
@@ -49,14 +61,14 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 class PostDetailAPI(RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
+    permission_classes = [IsAdminUser, IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
 class CommentListAPI(ListCreateAPIView):
     serializer_class = CommentSerializer
     pagination_class = CommentCursorPagination
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
+    permission_classes = [IsAdminUser, IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def get_queryset(self):
         post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
@@ -64,8 +76,8 @@ class CommentListAPI(ListCreateAPIView):
 
     def perform_create(self, serializer):
         post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
-        serializer.save(post=post)
-        serializer.save(created_by=self.request.user)
+        serializer.save(post=post, created_by=self.request.user)
+
 
 class SignUpView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -73,7 +85,7 @@ class SignUpView(generics.CreateAPIView):
 
 class LoginView(APIView):
     def post(self, request):
-        serializer = LoginSerializer(data=request.data)
+        serializer = UserSerializer(data=request.data)
 
         if serializer.is_valid():
             username = serializer.validated_data['username']

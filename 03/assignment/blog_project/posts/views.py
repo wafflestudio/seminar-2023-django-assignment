@@ -3,9 +3,10 @@ from django.contrib.auth.hashers import make_password
 from django.views.generic import RedirectView
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.authtoken.models import Token
+from rest_framework.exceptions import PermissionDenied, NotAuthenticated
 from rest_framework.generics import get_object_or_404, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.pagination import CursorPagination
-from rest_framework import permissions, generics, status
+from rest_framework import permissions, generics, status, viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser
 from rest_framework.views import APIView
@@ -25,11 +26,11 @@ class CommentCursorPagination(CursorPagination):
     page_size = 10
     ordering = '-created_at'
 
-class PostListAPI(generics.ListCreateAPIView):
+class PostListAPI(ListCreateAPIView):
      queryset = Post.objects.all()
      pagination_class = PostCursorPagination
      authentication_classes = [SessionAuthentication, TokenAuthentication]
-     permission_classes = [ IsAdminUser, IsAuthenticatedOrReadOnly]
+     permission_classes = [IsAuthenticatedOrReadOnly]
 
      def get_serializer_class(self):
          if self.request.method == 'POST':
@@ -54,7 +55,17 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
+        if request.user.is_staff or request.user.is_superuser:
+            return True
+
         return obj.created_by == request.user
+
+    # def has_object_permission(self, request, view, obj):
+    #     if request.user:
+    #         if obj.id == request.user.id:
+    #             return True
+    #         raise PermissionDenied()
+    #     raise NotAuthenticated()
 
 
 
@@ -62,13 +73,13 @@ class PostDetailAPI(RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
     authentication_classes = [SessionAuthentication, TokenAuthentication]
-    permission_classes = [IsAdminUser, IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
 class CommentListAPI(ListCreateAPIView):
     serializer_class = CommentSerializer
     pagination_class = CommentCursorPagination
     authentication_classes = [SessionAuthentication, TokenAuthentication]
-    permission_classes = [IsAdminUser, IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def get_queryset(self):
         post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
@@ -79,9 +90,31 @@ class CommentListAPI(ListCreateAPIView):
         serializer.save(post=post, created_by=self.request.user)
 
 
+class IsOwner(permissions.BasePermission):
+
+    def has_object_permission(self, request, view, obj):
+        if request.user.is_staff or request.user.is_superuser:
+            return True
+
+        return obj.created_by == request.user
+
+
+class CommentDetailAPI(RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
+    permission_classes = [IsOwner]
+    lookup_url_kwarg = 'comment_id'
+
+    def perform_update(self, serializer):
+        serializer.save(is_updated=True)
+
+
+
 class SignUpView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
 
 class LoginView(APIView):
     def post(self, request):
@@ -95,10 +128,10 @@ class LoginView(APIView):
             user = authenticate(request, username=username, password=password)
 
             if user is not None:
-                # 사용자 로그인
                 login(request, user)
-                return Response({'message': '로그인 성공'}, status=status.HTTP_200_OK)
+                token = Token.objects.get(user=user)
+                return Response({"Token": token.key}, status=status.HTTP_200_OK)
             else:
-                return Response({'message': '잘못된 자격 증명'}, status=status.HTTP_401_UNAUTHORIZED)
+                return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

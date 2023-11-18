@@ -37,7 +37,7 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    is_updated = (created_at != updated_at)
+    is_updated = models.BooleanField(default=False)
 
     def __str__(self):
         return self.content

@@ -43,7 +43,21 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'widget_tweaks',
+    'rest_framework',
+    'django_seed',
+    'taggit.apps.TaggitAppConfig',
+    'taggit_templatetags2',
+    'rest_framework.authtoken'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+TAGGIT_CASE_INSENSITIVE = True
+TAGGIT_LIMIT = 50
 
 SITE_ID = 1
 
@@ -77,7 +91,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'myblog.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -142,3 +155,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #Email settings
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS' : 'rest_framework.pagination.CursorPagination',
+    'PAGE_SIZE' : 2,
+}

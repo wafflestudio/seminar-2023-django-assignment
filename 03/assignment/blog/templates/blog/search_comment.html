@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>LARGE</title>
+    <title>"{{ query }}" | LARGE</title>
 </head>
 <body>
     {% if user.is_authenticated %}
@@ -11,16 +11,19 @@
         <a href = "{% url 'login-page' %}">로그인</a>
         <a href = "{% url 'signup-page' %}">회원가입</a>
     {% endif %}
-
-    <h1>LARGE 블로그에 오신걸 환영합니다</h1>
-    {% if user.is_authenticated %}
-        <p>안녕하세요, {{user.nickname}}님!</p>
-        <a href="{% url 'post-create' %}">글 쓰러 가기</a>
-        {% else %}
-            <p>로그아웃된 상태입니다.</p>
-            <p>글을 작성하려면 로그인하세요!</p>
-    {% endif %}
     <br>
+    <h1>본문 태그 #{{ query }} 검색결과</h1>
+    <h3>{{ paginator.count }}개 본문이 존재합니다</h3>
+
+    <br><br><br>
+    {% for comment in search_comment %}
+        <p>{{ comment.content }} | {{ comment.created_by }}</p>
+    	<a href="{% url 'post-detail' comment.post.id %}">ㄴ>{{ comment.post.title }}</a>
+    {% empty %}
+    	<p>그런 태그로 작성된 댓글은 없어요 :(</p>
+    {% endfor %}
+    <br><br><br>
+
     <form action="{% url 'search-post' %}" method="get">
         {% csrf_token %}
         <p>태그로 본문 검색</p>
@@ -37,16 +40,6 @@
         </label>
         <button type="submit">댓글 찾기</button>
     </form>
-
-    <br><br><br>
-    <p>------------------------------------------------------------</p>
-    {% for post in posts %}
-    	<a href="{% url 'post-detail' post.id %}">{{ post.title }}</a>
-        <p>ㄴ>{{ post.created_by.nickname }} | {{ post.created_at }}</p>
-    {% empty %}
-    	<a>아직 작성된 글이 없어요!</a>
-    {% endfor %}
-    <br><br><br>
 
     {% if is_paginated %}
         <h3>현재 페이지: {{ page_obj.number }}</h3>
@@ -66,5 +59,8 @@
             <li><a href="?page={{ page_obj.paginator.num_pages }}">마지막</a></li>
         {% endif %}
     {% endif %}
+    <br><br>
+
+    <a href="{% url 'post-index' %}">메뉴로 돌아가기</a>
 </body>
 </html>

@@ -3,6 +3,7 @@ from braces.views import LoginRequiredMixin
 from django.shortcuts import render, reverse
 from django.views.generic import View, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.db.models import Q
 
 from .models import Post, Comment, TagPost, TagComment
 from .forms import PostForm, CommentForm
@@ -152,6 +153,7 @@ class CommentUpdateView(PermissionRequiredMixin, UpdateView):
                 tag, _ = TagComment.objects.get_or_create(content=ctag)
                 self.update_tags.append(tag)
         return super().post(request, *args, **kwargs)
+
     def has_permission(self):
         return (self.get_object().created_by == self.request.user) or (self.request.user.is_superuser)
 
@@ -190,3 +192,35 @@ class CommentDeleteView(PermissionRequiredMixin, DeleteView):
             if not Comment.objects.filter(tags__content=comment_tag).exists():
                 TagComment.objects.get(content=comment_tag).delete()
         return reverse('post-detail', kwargs={'post_id': self.object.post.id})
+
+
+class SearchPostView(ListView):
+    model = Post
+    context_object_name = 'search_post'
+    template_name = 'blog/search_post.html'
+    paginate_by = 8
+
+    def get_queryset(self):
+        query = self.request.GET.get('query', '')
+        return Post.objects.filter(tags__content__icontains=query)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.request.GET.get('query', '')
+        return context
+
+
+class SearchCommentView(ListView):
+    model = Comment
+    context_object_name = 'search_comment'
+    template_name = 'blog/search_comment.html'
+    paginate_by = 20
+
+    def get_queryset(self):
+        query = self.request.GET.get('query', '')
+        return Comment.objects.filter(tags__content__icontains=query)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.request.GET.get('query', '')
+        return context

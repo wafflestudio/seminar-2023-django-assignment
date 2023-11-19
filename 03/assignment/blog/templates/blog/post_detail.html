@@ -34,12 +34,12 @@
     {% if user.is_superuser %}
         <p>관리자 권한 활성화</p>
     {% endif %}
-    {% for comment in comments %}
+    {% for comment_unit in comments %}
         <p>-----------------------</p>
-        <p>{{ comment.content }} | {{ comment.created_by }} | {% if not comment.is_updated %} {{ post.created_at }} {% else %} (수정됨){{ post.updated_at }}{% endif %}</p>
-        <h6>{% for ctag in ctags %}#{{ ctag.content }} {% endfor %}</h6>
-        {% if comment.created_by == user or user.is_superuser %}
-            <a href = "{% url 'comment-update' comment.id %}">수정하기</a> <a href = "{% url 'comment-delete' comment.id %}">삭제하기</a>
+        <p>{{ comment_unit.content }} | {{ comment_unit.created_by.nickname }} | {% if not comment_unit.is_updated %} {{ comment_unit.created_at }} {% else %} (수정됨){{ comment_unit.updated_at }}{% endif %}</p>
+
+        {% if comment_unit.created_by == user or user.is_superuser %}
+            <a href = "{% url 'comment-update' comment_unit.id %}">수정하기</a> <a href = "{% url 'comment-delete' comment_unit.id %}">삭제하기</a>
         {% endif %}
     {% empty %}
         <p>-----------------------</p>

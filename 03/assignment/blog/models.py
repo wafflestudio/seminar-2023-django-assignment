@@ -10,6 +10,9 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ['-created_at']
+
 class Comment(models.Model):
     content = models.TextField()
     post = models.ForeignKey(Post, models.CASCADE)
@@ -20,6 +23,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content[:30]
+
+    class Meta:
+        ordering = ['-created_at']
 
 class TagPost(models.Model):
     content = models.TextField(max_length=50, primary_key=True)

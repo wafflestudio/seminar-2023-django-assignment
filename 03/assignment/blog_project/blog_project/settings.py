@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 import pymysql
+from django.core.exceptions import ImproperlyConfigured
 
 pymysql.install_as_MySQLdb()
 
@@ -65,7 +66,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware'
+    'allauth.account.middleware.AccountMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'blog_project.urls'
@@ -101,6 +103,15 @@ REST_FRAMEWORK = {
     ],
 
 }
+
+# def get_env_variable(var_name):
+#   try:
+#     return os.environ[var_name]
+#   except KeyError:
+#     error_msg = 'Set the {} environment variable'.format(var_name)
+#     raise ImproperlyConfigured(error_msg)
+#
+# SECRET_KEY = get_env_variable('DJANGO_SECRET')
 
 
 # Database
@@ -167,15 +178,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-STATICFILES_DIRS = (
-    ("admin", os.path.join(STATIC_ROOT, 'admin')),
-    ("rest_framework", os.path.join(STATIC_ROOT, 'rest_framework')),
-    # ("images", os.path.join(STATIC_ROOT,'images')),
-    # ("fonts", os.path.join(STATIC_ROOT,'fonts')),
-)
+# STATICFILES_DIRS = (
+#     ("admin", os.path.join(STATIC_ROOT, 'admin')),
+#     ("rest_framework", os.path.join(STATIC_ROOT, 'rest_framework')),
+#     # ("images", os.path.join(STATIC_ROOT,'images')),
+#     # ("fonts", os.path.join(STATIC_ROOT,'fonts')),
+# )
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -184,3 +195,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True

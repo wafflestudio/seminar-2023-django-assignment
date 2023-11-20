@@ -1,8 +1,9 @@
-from django.contrib import admin
 from django.urls import path
-# from .views import LoginView, LogoutView
+from .views import UserRegistrationView, UserDetailView, CustomObtainAuthToken
+from rest_framework.authtoken import views
 
 urlpatterns = [
-    # path('login/', LoginView.as_view(), name='login'),
-    # path('logout/', LogoutView.as_view(), name='logout'),
+    path('register/', UserRegistrationView.as_view(), name='user-registration'),
+    path('user/', UserDetailView.as_view(), name='user-detail'),
+    path('token/', views.obtain_auth_token, name='obtain_auth_token'),
 ]

@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
 from .models import Post, Comment, Tag
 from .serializers import PostListSerializer, PostCreateSerializer, PostDetailSerializer, CommentSerializer, TagSerializer
-from .permissions import IsOwnerOrReadOnly
+from .permissions import IsOwnerOrReadOnly, IsAdminOrOwnerOrReadOnly
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
@@ -23,7 +23,7 @@ class PostListCreateView(generics.ListCreateAPIView):
 class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
-    permission_classes = [permissions.AllowAny, IsOwnerOrReadOnly]
+    permission_classes = [IsAdminOrOwnerOrReadOnly]
 
 
 class CommentListCreateView(generics.ListCreateAPIView):
@@ -46,12 +46,13 @@ class CommentListCreateView(generics.ListCreateAPIView):
 class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsAdminOrOwnerOrReadOnly]
 
 
 class TagListCreateView(generics.ListAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    permission_classes = [permissions.AllowAny]
 
 
 class TaggedPostListAPIView(generics.ListAPIView):

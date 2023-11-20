@@ -1,0 +1,46 @@
+<navbar>
+    <a href="{% url 'index' %}">메인 화면</a>
+    <a href="{% url 'post-create' %}">글쓰기</a>
+    <a href="{% url 'post-list' %}">글 목록</a>
+</navbar>
+
+<br>
+<br>
+<br>
+{% if page.object_list %}
+    <table>
+        {% for comment in page.object_list %}
+        <tb>
+            <hr>
+            <div>
+                <h4>
+                    <a href="{% url 'post-detail' comment.post.id %}">
+                        {{ comment.content }}
+                    </a>
+                </h4>
+            </div>
+        </tb>
+        {% endfor %}
+    </table>
+    
+    <h3>
+        <div>
+            {% if page.has_previous %}
+                <a href="?page={{ page.previouse_page_number }}">prev</a> <br>
+                <a href="?page=1">first</a>
+            {% endif %}
+
+            <span>
+                <p>{{ page.number }} of {{ page.paginator.num_pages }}</p>
+            </span>
+
+            {% if page.has_next %}
+                <a href="?page={{ page.next_page_number }}">next</a> <br>
+                <a href="?page={{ page.paginator.num_pages }}">last</a>
+            {% endif %}
+                
+        </div>
+    </h3>
+{% else %}
+    <p>글이 없어요..</p>
+{% endif %}

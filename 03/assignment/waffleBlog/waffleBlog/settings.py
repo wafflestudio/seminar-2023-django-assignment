@@ -89,17 +89,29 @@ WSGI_APPLICATION = 'waffleBlog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# For DEBUG Cases
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": "ebdb",
+#         "USER": "admin",
+#         "PASSWORD": "waffleadmin",
+#         "HOST": "awseb-e-msedwfvatw-stack-awsebrdsdatabase-sww5qqqoolaw.cjhddfp74hqc.us-west-2.rds.amazonaws.com",
+#         "PORT": "3306",
+#     }
+# }
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "ebdb",
-        "USER": "admin",
-        "PASSWORD": "waffleadmin",
-        "HOST": "awseb-e-msedwfvatw-stack-awsebrdsdatabase-sww5qqqoolaw.cjhddfp74hqc.us-west-2.rds.amazonaws.com",
-        "PORT": "3306",
+if 'RDS_HOSTNAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
     }
-}
 
 
 # Password validation

@@ -27,16 +27,7 @@ class Comment(models.Model):
     class Meta:
         ordering = ['-created_at']
 
-class TagPost(models.Model):
+class Tag(models.Model):
     content = models.TextField(max_length=50, primary_key=True)
     post = models.ManyToManyField("Post", related_query_name='tags', related_name='tagPost')
-
-    def __str__(self):
-        return self.content
-
-class TagComment(models.Model):
-    content = models.TextField(max_length=50, primary_key=True)
     comment = models.ManyToManyField("Comment", related_query_name='tags', related_name='tagComment')
-
-    def __str__(self):
-        return self.content

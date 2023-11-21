@@ -24,17 +24,21 @@ class PostRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     permission_classes = (IsOwnerOrReadOnly,)
 
-
-class CommentCreateAPI(generics.CreateAPIView):
+class CommentListCreateAPI(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
-    queryset = Comment.objects.all()
     permission_classes = (IsOwnerOrReadOnly,)
 
+    def get_queryset(self):
+        post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
+        return Comment.objects.filter(post=post)
+
     def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
+        post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
+        serializer.save(post=post, created_by=self.request.user)
+
 
 
 class CommentRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CommentSerializer
-    queryset = Post.objects.all()
+    queryset = Comment.objects.all()
     permission_classes = (IsOwnerOrReadOnly,)

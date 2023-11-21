@@ -1,12 +1,11 @@
-from django.shortcuts import render
 from rest_framework.generics import get_object_or_404
 from rest_framework import generics
-from rest_framework.response import Response
 
-from .models import Post, Comment
+from .models import Post, Comment, Tag
 from .serializers import PostSerializer, CommentSerializer
 from .permissions import IsOwnerOrReadOnly
 from .paginations import CursorPagination
+from .tag_manage import postCreateNewTag, postUpdateTag, commentCreateNewTag, commentUpdateTag, DeleteTag
 
 
 class PostListCreateAPI(generics.ListCreateAPIView):
@@ -17,12 +16,32 @@ class PostListCreateAPI(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
+        try:
+            tag_text = serializer.validated_data['tags']
+        except KeyError:
+            tag_text = ''
+        new_post = serializer.instance
+        postCreateNewTag(tag_text, new_post)
 
 
 class PostRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
     permission_classes = (IsOwnerOrReadOnly,)
+
+    def perform_update(self, serializer):
+        serializer.save()
+        try:
+            tag_text = serializer.validated_data['tags']
+        except KeyError:
+            tag_text = ''
+        updated_post = serializer.instance
+        postUpdateTag(tag_text, updated_post)
+
+    def perform_destroy(self, instance):
+        instance.delete()
+        DeleteTag()
+
 
 class CommentListCreateAPI(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
@@ -35,6 +54,13 @@ class CommentListCreateAPI(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
         serializer.save(post=post, created_by=self.request.user)
+        try:
+            tag_text = serializer.validated_data['tags']
+        except KeyError:
+            tag_text = ''
+        new_comment = serializer.instance
+        commentCreateNewTag(tag_text, new_comment)
+
 
 
 
@@ -42,3 +68,16 @@ class CommentRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView)
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
     permission_classes = (IsOwnerOrReadOnly,)
+
+    def perform_update(self, serializer):
+        serializer.save()
+        try:
+            tag_text = serializer.validated_data['tags']
+        except KeyError:
+            tag_text = ''
+        updated_comment = serializer.instance
+        commentUpdateTag(tag_text, updated_comment)
+
+    def perform_destroy(self, instance):
+        instance.delete()
+        DeleteTag()

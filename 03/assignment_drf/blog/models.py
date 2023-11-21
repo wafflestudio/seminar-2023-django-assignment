@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Post(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
@@ -12,6 +13,7 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
 
 class Comment(models.Model):
     content = models.TextField()
@@ -27,7 +29,11 @@ class Comment(models.Model):
     class Meta:
         ordering = ['-created_at']
 
+
 class Tag(models.Model):
     content = models.TextField(max_length=50, primary_key=True)
     post = models.ManyToManyField("Post", related_query_name='tags', related_name='tagPost')
     comment = models.ManyToManyField("Comment", related_query_name='tags', related_name='tagComment')
+
+    def __str__(self):
+        return self.content

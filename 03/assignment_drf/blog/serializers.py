@@ -3,6 +3,7 @@ from .models import Post, Comment
 
 
 class PostSerializer(serializers.ModelSerializer):
+    tags = serializers.CharField(max_length=100, required=False)
     class Meta:
         model = Post
         fields = [
@@ -12,6 +13,7 @@ class PostSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
             'created_by',
+            'tags'
         ]
         read_only_fields = [
             'id',
@@ -20,6 +22,7 @@ class PostSerializer(serializers.ModelSerializer):
         ]
 
 class CommentSerializer(serializers.ModelSerializer):
+    tags = serializers.CharField(max_length=100, required=False)
     class Meta:
         model = Comment
         fields = [
@@ -30,10 +33,12 @@ class CommentSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
             'is_updated',
+            'tags',
         ]
         read_only_fields = [
             'id',
             'created_at',
+            'created_by'
         ]
         extra_kwargs = {
             'post': {'read_only': True}

@@ -27,7 +27,7 @@ SECRET_KEY = '#^#ll*8$cy$)94vceu*&p!#ra&epm09(%t^tkdgm+@3la@^^ma'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*'] # Server : waffleblog-env2.eba-hjqicshp.us-west-2.elasticbeanstalk.com 
 
 
 # Application definition
@@ -128,13 +128,14 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # AUTH Settings
 
@@ -158,3 +159,4 @@ SESSION_COOKIE_AGE = 86400
 #Email Settings
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION = 'none'

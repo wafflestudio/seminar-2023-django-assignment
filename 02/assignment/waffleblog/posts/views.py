@@ -1,12 +1,11 @@
+# Create your views here.
 from django.shortcuts import render, redirect
-from .models import Post, Comment
+from .models import Post, Comment, User
 from .forms import PostForm, SignupForm, CommentForm
-from braces.views import LoginRequiredMixin
 
 # Create your views here.
 
 def index(request):
-    print(request.user.is_authenticated)
     return render(request, "posts/index.html")
 
 def posts_list(request):
@@ -27,7 +26,7 @@ def post_detail(request, post_id):
         return redirect("post_detail", post_id=post.id)
     else:
         comment_form = CommentForm()
-        context = {"post": post, "comment": comment, "form": comment_form}
+        context = {"post": post, "comments": comment, "form": comment_form}
         return render(request, "posts/post_detail.html", context)
 
 
@@ -73,9 +72,8 @@ def post_delete(request, post_id):
 def change_profile(request):
     if request.method == "POST":
         form = SignupForm(request.POST)
-        if form.is_valid():
-            form.signup(request, form)
-            return redirect("index")
+        form.signup(request, request.user)
+        return redirect("index")
     else:
         form = SignupForm()
         return render(request, 'posts/change_profile.html', {'form': form})

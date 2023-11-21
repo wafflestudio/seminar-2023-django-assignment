@@ -18,7 +18,7 @@
   <a href={% url 'posts_list' %}> Back to Posts List </a>
 
   <hr>
-  <h2> Comments </h2>
+  <h4> Comments </h4>
   {% for comment in comments %}
     <div> {{ comment.content }} </div>
     <div> Created At: {{ comment.created_at }} </div>

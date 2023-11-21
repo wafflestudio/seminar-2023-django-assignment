@@ -8,8 +8,8 @@
 <h1>Home</h1>
 
   {% if user.is_authenticated %}
-    <p> Hello, {{ user.nickname }}!! </p>
-    <a href="{% url 'change_profile' %}">Change Profile</a>
+    <p> Hello, {{ user.username }}!! </p>
+    {% comment %} <a href="{% url 'change_profile' %}">Change Profile</a> {% endcomment %}
   {% else %}
     <p> Hello, guest!! </p>
   {% endif %}

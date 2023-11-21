@@ -10,11 +10,10 @@ class PostForm(forms.ModelForm):
 class SignupForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['nickname']
+        fields = ['username']
 
     def signup(self, request, user):
-        user.nickname = self.cleaned_data['nickname']
-        user.save()
+        user = super().save()
         return user
     
 

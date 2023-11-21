@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-yz2q#2^*ua)y3-6jr92-54mn)j@zti!fud$f2%$!=d50dj%+jc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['Waffleblog-env.eba-3j9eg2uq.us-west-2.elasticbeanstalk.com', '127.0.0.1']
 

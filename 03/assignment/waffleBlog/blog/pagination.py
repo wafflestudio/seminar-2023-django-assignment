@@ -2,5 +2,5 @@ from rest_framework.pagination import CursorPagination
 
 
 class CustomCursorPagination(CursorPagination):
-    ordering = '-created.at'
+    ordering = '-created_at'
     page_size = 10

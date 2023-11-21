@@ -2,6 +2,7 @@ from rest_framework import generics, permissions
 from .models import Post, Comment, Tag
 from .serializers import PostListSerializer, PostCreateSerializer, PostDetailSerializer, CommentSerializer, TagSerializer
 from .permissions import IsOwnerOrReadOnly, IsAdminOrOwnerOrReadOnly
+from .pagination import CustomCursorPagination
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
@@ -10,6 +11,7 @@ class PostListCreateView(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    pagination_class = CustomCursorPagination
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -30,6 +32,7 @@ class CommentListCreateView(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    pagination_class = CustomCursorPagination
 
     def get_queryset(self):
         # 게시물 ID가 제공되면 해당 게시물에 대한 댓글만 반환, 그렇지 않으면 모든 댓글 반환

@@ -92,8 +92,12 @@ WSGI_APPLICATION = 'waffleBlog.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "ebdb",
+        "USER": "admin",
+        "PASSWORD": "waffleadmin",
+        "HOST": "awseb-e-msedwfvatw-stack-awsebrdsdatabase-sww5qqqoolaw.cjhddfp74hqc.us-west-2.rds.amazonaws.com",
+        "PORT": "3306",
     }
 }
 
@@ -148,3 +152,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
 }
+
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

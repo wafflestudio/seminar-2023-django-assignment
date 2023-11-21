@@ -1,9 +1,0 @@
-<form action="{% url 'tag-search' %}" method="post">{% csrf_token %}
-    <input type="text" name="tag_name">
-    <br>
-    <div>
-        <input type="radio" name="type" value="posts">posts
-        <input type="radio" name="type" value="comments">comments
-    </div>
-    <button type="search">검색</button>
-</form>

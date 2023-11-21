@@ -1,0 +1,53 @@
+<navbar>
+    <a href="{% url 'index' %}">메인 화면</a>
+    <a href="{% url 'post-create' %}">글쓰기</a>
+    <a href="{% url 'tag-search' %}">태그 검색</a>
+</navbar>
+
+<br>
+<br>
+<br>
+{% if page_obj.object_list %}
+    <table>
+        {% for post in page_obj.object_list %}
+        <tb>
+            <hr>
+            <div>
+                <h2>
+                    <a href="{% url 'post-detail' post.id %}">
+                        {{ post.title }}
+                    </a>
+                </h2>
+                
+                <h4>{{ post.description|slice:"0:300" }}</h4>
+            </div>
+            태그 : 
+            {% for tag in post.tags.iterator %}
+                <a href="{% url 'post-tag-list' tag.name %}">{{ tag }} </a>
+            {% endfor %}
+            <br>
+        </tb>
+        {% endfor %}
+    </table>
+    
+    <h3>
+        <div>
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previouse_page_number }}">prev</a> <br>
+                <a href="?page=1">first</a>
+            {% endif %}
+
+            <span>
+                <p>{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a> <br>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last</a>
+            {% endif %}
+                
+        </div>
+    </h3>
+{% else %}
+    <p>글이 없어요..</p>
+{% endif %}

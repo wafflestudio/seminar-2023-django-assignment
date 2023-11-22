@@ -29,6 +29,7 @@ from .serializers import PostSerializer, CommentSerializer, UserSerializer
 from .forms import PostForm
 from .permissions import IsOwnerOrReadOnly
 
+
 from walog import settings
 # Create your views here.
 # 기초
@@ -216,7 +217,23 @@ def update_comment(request, pk):
     comment.save()
     
     post_id = comment.post.id
-    return redirect('{}#comment_{}'.format(resolve_url('post-detail', pk=post_id), pk))
+    comment_list = Comment.objects.filter(post__id=post_id)
+    paginator = Paginator(comment_list, 5)
+    curr_page_number = 1
+    pages = paginator.num_pages
+    end = False
+    for i in range(1, pages+1):
+        page = paginator.page(i)
+        for q in page.object_list:
+            if q.id == pk:
+                curr_page_number = i
+                end = True
+                break
+        if end:
+            break
+
+
+    return redirect('{}?page={}#comment_{}'.format(resolve_url('post-detail', pk=post_id), curr_page_number, pk))
 
 def delete_comment(request, pk):
     post_id = Comment.objects.get(id=pk).post.id
@@ -227,7 +244,22 @@ def delete_comment(request, pk):
 
 def edit_comment(request, pk):
     post_id = Comment.objects.get(id=pk).post.id
-    return redirect('{}#comment_{}'.format(resolve_url('post-detail-editcomment', pk=post_id, editing_comment=pk), pk))
+    comment_list = Comment.objects.filter(post__id=post_id)
+    paginator = Paginator(comment_list, 5)
+    curr_page_number = 1
+    pages = paginator.num_pages
+    end = False
+    for i in range(1, pages+1):
+        page = paginator.page(i)
+        for q in page.object_list:
+            if q.id == pk:
+                curr_page_number = i
+                end = True
+                break
+        if end:
+            break
+
+    return redirect('{}?page={}#comment_{}'.format(resolve_url('post-detail-editcomment', pk=post_id, editing_comment=pk), curr_page_number,pk))
 
 
 
@@ -240,7 +272,7 @@ class PostPageNumberPagination(PageNumberPagination):
 
 class APIPostList(LoginRequiredMixin, ListCreateAPIView):
     login_url = settings.LOGIN_URL
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by("-id")
     serializer_class = PostSerializer
     pagination_class = PostPageNumberPagination
 
@@ -296,12 +328,34 @@ class APICommentList(LoginRequiredMixin, ListCreateAPIView):
 
     def get_queryset(self):
         post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
-        return Comment.objects.filter(post=post)
+        return Comment.objects.filter(post=post).order_by("-id")
 
     def perform_create(self, serializer):
         post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
         serializer.save(post=post, created_by=self.request.user)
         return super().perform_create(serializer)
+
+class APICommentDetail(LoginRequiredMixin, RetrieveUpdateDestroyAPIView):
+    login_url = settings.LOGIN_URL
+    serializer_class = CommentSerializer
+    permission_classes = [IsOwnerOrReadOnly]    
+
+    def get_object(self):
+        comment = get_object_or_404(Comment, pk=self.kwargs.get('comment_pk'))
+        return comment
+
+    def delete(self, request, *args, **kwargs):
+        response = super().delete(request, *args, **kwargs)
+        TagCheck()
+        return response
+    
+    def patch(self, request, *args, **kwargs):
+        request.data['is_updated'] = True
+        return super().patch(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        request.data['is_updated'] = True
+        return super().put(request, *args, **kwargs)
 
 
 # token authentication
@@ -393,3 +447,4 @@ def comment_tag_list(request, tag_name):
         curr_page_number = 1
     page = paginator.page(curr_page_number)
     return render(request, 'blog/comment_tag_list.html', {'page' : page})
+

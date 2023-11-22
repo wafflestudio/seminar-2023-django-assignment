@@ -3,7 +3,7 @@ from django.urls import path
 from rest_framework.authtoken.views import obtain_auth_token
 
 from . import views
-from .views import APIPostList, APIPostDetail, APICommentList
+from .views import APIPostList, APIPostDetail, APICommentList, APICommentDetail
 
 urlpatterns = [
     path('', views.index, name="index"),
@@ -30,6 +30,7 @@ urlpatterns = [
     path('api/posts', APIPostList.as_view(), name='api-post-list'),
     path('api/posts/<int:pk>', APIPostDetail.as_view(), name='api-post-detail'),
     path('api/posts/<int:pk>/comments', APICommentList.as_view(), name='api-comment-list'),   
+    path('api/posts/<int:pk>/comments/<int:comment_pk>', APICommentDetail.as_view(), name='api-comment-detail'),   
 
     #path('api/token', views.ExampleView.as_view()),
     #path('api-token-auth/', views.ObtainAuthToken.as_view()),
@@ -38,4 +39,5 @@ urlpatterns = [
 
     path('login/', views.MyLoginView.as_view(), name='login'),
     path('signup/', views.MySignupView.as_view(), name='signup'),
+
 ]

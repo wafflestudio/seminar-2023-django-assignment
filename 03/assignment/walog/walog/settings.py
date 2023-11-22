@@ -145,7 +145,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
-
 AUTH_USER_MODEL = 'blog.User'
 
 # Default primary key field type

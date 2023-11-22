@@ -22,10 +22,10 @@ class CommentSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
     created_by = serializers.StringRelatedField()
-
+    
     class Meta:
         model = Post
-        fields = ['id', 'tags', 'title', 'description', 'comments', 'created_by', 'created_at', 'updated_at']
+        fields = ['id', 'title', 'description', 'tags', 'comments', 'created_by', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at', 'tags']
     # id = serializers.IntegerField(read_only=True)
     # title = serializers.CharField(max_length=30)

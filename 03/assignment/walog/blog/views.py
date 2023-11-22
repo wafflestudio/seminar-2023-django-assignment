@@ -22,10 +22,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import authentication
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication, BasicAuthentication
+from rest_framework import permissions
 
 from .models import User, Post, Comment, Tag
 from .serializers import PostSerializer, CommentSerializer, UserSerializer
 from .forms import PostForm
+from .permissions import IsOwnerOrReadOnly
 
 from walog import settings
 # Create your views here.
@@ -246,10 +248,12 @@ class APIPostList(LoginRequiredMixin, ListCreateAPIView):
         serializer.save(created_by=self.request.user)
         return super().perform_create(serializer)
 
+
 class APIPostDetail(LoginRequiredMixin, RetrieveUpdateDestroyAPIView):
     login_url = settings.LOGIN_URL
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    permission_classes = [IsOwnerOrReadOnly]
 
     def delete(self, request, *args, **kwargs):
         response = super().delete(request, *args, **kwargs)

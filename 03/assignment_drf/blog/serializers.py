@@ -43,3 +43,16 @@ class CommentSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'post': {'read_only': True}
         }
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = [
+            'content',
+            'post',
+            'comment',
+        ]
+        extra_kwargs = {
+            'content': {'read_only': True},
+            'post': {'read_only': True},
+            'comment': {'read_only': True},
+        }

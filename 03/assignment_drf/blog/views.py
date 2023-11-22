@@ -2,7 +2,7 @@ from rest_framework.generics import get_object_or_404
 from rest_framework import generics
 
 from .models import Post, Comment, Tag
-from .serializers import PostSerializer, CommentSerializer
+from .serializers import PostSerializer, CommentSerializer, TagSerializer
 from .permissions import IsOwnerOrReadOnly
 from .paginations import CursorPagination
 from .tag_manage import postCreateNewTag, postUpdateTag, commentCreateNewTag, commentUpdateTag, DeleteTag
@@ -62,8 +62,6 @@ class CommentListCreateAPI(generics.ListCreateAPIView):
         commentCreateNewTag(tag_text, new_comment)
 
 
-
-
 class CommentRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
@@ -81,3 +79,22 @@ class CommentRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView)
     def perform_destroy(self, instance):
         instance.delete()
         DeleteTag()
+
+
+class TagListByPostAPI(generics.ListAPIView):
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()
+
+    def get_queryset(self):
+        tag = get_object_or_404(Tag, content=self.kwargs.get('content'))
+        return Post.objects.filter(tags__content=tag.content)
+
+
+class TagListByCommentAPI(generics.ListAPIView):
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
+
+    def get_queryset(self):
+        tag = get_object_or_404(Tag, content=self.kwargs.get('content'))
+        return Comment.objects.filter(tags__content=tag.content)
+

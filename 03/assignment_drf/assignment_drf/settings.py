@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-38k)ri3n)^t+(1-07vq*uq!kdqi6%f0yv7@o*jcjm*i0_te#-+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['hw03-a.eba-rhievpzp.us-west-2.elasticbeanstalk.com']
 AUTH_USER_MODEL = 'account.User'
 LOGIN_URL = "/account/login/"
 
@@ -117,9 +117,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 

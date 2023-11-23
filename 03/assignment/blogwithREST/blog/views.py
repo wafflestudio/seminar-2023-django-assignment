@@ -1,6 +1,6 @@
 # Create your views here.
 from .models import Post, Comment
-from .serializers import PostSerializer, CommentSerializer, UserSerializer
+from .serializers import PostSerializer, CommentSerializer, UserSerializer, LoginSerializer
 
 # default(NOT REST) 
 from django.contrib.auth import authenticate, login, get_user_model
@@ -23,12 +23,13 @@ class LoginView(APIView):
    serializer_class = UserSerializer
 
    def post(self, request, format=None):
+      serializer = LoginSerializer(data = request.data)
       username = request.data.get("username")
       password = request.data.get("password")
 
       # If username isn't given, then..
       if not username:
-         return Response({"error": "Username is required"}, status=status.HTTP_400_BAD_REQUEST)
+         return Response({"error": "이름, 곤란."}, status=status.HTTP_400_BAD_REQUEST)
 
       user = authenticate(request, username=username, password=password)
 
@@ -38,7 +39,7 @@ class LoginView(APIView):
          token, created = Token.objects.get_or_create(user=user)
          return Response({"token": token.key}, status=status.HTTP_200_OK)
 
-      return Response({"error": "Invalid Credentials"}, status=status.HTTP_400_BAD_REQUEST)
+      return Response({"error": "그런 이상한 이름/PW를 가진 사람은 몰라."}, status=status.HTTP_400_BAD_REQUEST)
 
 # 2. Sign Up Logic 
 class SignUpView(CreateAPIView):
@@ -103,7 +104,7 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
       return obj.author == request.user
    
 # 7. Post Detail (Update and Delete)
-class PostDetail(UpdateAPIView, DestroyAPIView):
+class PostDetail(RetrieveUpdateDestroyAPIView):
    queryset = Post.objects.all()
    serializer_class = PostSerializer
    permission_classes = [IsAuthorOrReadOnly]
@@ -149,7 +150,7 @@ class CommentListByTag(ListAPIView):
       return Comment.objects.filter(tag__name=tag_name)
 
 # 11. Comment Detail (Update and Delete)
-class CommentDetail(UpdateAPIView, DestroyAPIView):
+class CommentDetail(RetrieveUpdateDestroyAPIView):
    queryset = Comment.objects.all()
    serializer_class = CommentSerializer
    permission_classes = [IsAuthorOrReadOnly]

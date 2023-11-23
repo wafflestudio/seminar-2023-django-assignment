@@ -33,7 +33,11 @@ class UserSerializer(serializers.ModelSerializer):
          instance.set_password(password)
          instance.save()
       return instance
-      
+
+class LoginSerializer(serializers.Serializer):
+   username = serializers.CharField()
+   password = serializers.CharField(write_only=True)
+
 class PostSerializer(serializers.ModelSerializer):
    content_preview = serializers.SerializerMethodField()
    tag = serializers.CharField(max_length=100, required=False)  

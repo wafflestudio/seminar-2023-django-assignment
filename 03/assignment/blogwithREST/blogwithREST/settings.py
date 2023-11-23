@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-l=gy&s5_vbj)72c_q!1t_cp*zgn(e!knrw*jjf%69w36+lwm)!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['asgmt3-env.eba-cmd8wnbt.ap-northeast-2.elasticbeanstalk.com', '*']
 
 # Application definition
 
@@ -75,10 +75,21 @@ WSGI_APPLICATION = 'blogwithREST.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}"""
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME' : 'asgmt3db',
+        'HOST' : 'asgmt3db.clig8u4ceioo.ap-northeast-2.rds.amazonaws.com',
+        'USER' : 'admin',
+        'PASSWORD': 비밀입니다,
+        'PORT' : '3306'
     }
 }
 
@@ -120,6 +131,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

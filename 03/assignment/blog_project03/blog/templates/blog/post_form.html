@@ -1,0 +1,29 @@
+{% load static %}
+
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% if post %}새 포스트 작성{% else %}{{post.title}}{% endif %}</title>
+  </head>
+  <body>
+    <form method="post" autocomplete="off" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            {{ form.title|add_error_class:"error"|attr:"placeholder:제목" }}
+            {% for error in form.title.errors %}
+                <div>{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.content|add_error_class:"error"|attr:"placeholder:제목" }}
+            {% for error in form.content.errors %}
+                <div>{{ error }}</div>
+            {% endfor %}
+        </div>
+        <button type="submit">완료</button>
+        <a href="{% if post %}{% url 'post-detail' post.id %}{% else %}{% url 'main' %}{% endif %}">취소</a>
+    </form>
+  </body>
+</html>

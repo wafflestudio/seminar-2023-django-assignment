@@ -4,7 +4,8 @@ from .serializers import (PostSerializer,
                           UserSerializer,
                           PostCreateSerializer,
                           PostUpdateSerializer,
-                          CommentCreateSerializer
+                          CommentCreateSerializer,
+                          CommentUpdateSerializer
                           )
 from rest_framework.generics import (
                                     ListAPIView,
@@ -165,7 +166,7 @@ class PostUpdateView(RetrieveUpdateAPIView):
 
 class CommentUpdateView(RetrieveUpdateAPIView):
     model = Comment
-    serializer_class = CommentSerializer
+    serializer_class = CommentUpdateSerializer
     permission_classes = [permissions.IsAuthenticated|permissions.IsAdminUser]
     
     lookup_field = 'id'

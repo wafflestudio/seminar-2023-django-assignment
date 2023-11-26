@@ -107,7 +107,7 @@ class CommentUpdateSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True, required=False)
 
     class Meta:
-        model = Post
+        model = Comment
         fields = ['content', 'tags']
         read_only_fields = ['dt_created', 'dt_updated', 'is_updated', 'author', 'post']
 
@@ -122,4 +122,3 @@ class CommentUpdateSerializer(serializers.ModelSerializer):
 
         instance.save()
         return instance
-

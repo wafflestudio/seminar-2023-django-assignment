@@ -56,7 +56,7 @@ class PostCreateSerializer(serializers.ModelSerializer):
         tags_data = validated_data.pop('tags', [])
         post = Post.objects.create(**validated_data)
 
-        tags = [Tag.objects.get_or_create(content=tag)[0] for tag in tags_data]
+        tags = [Tag.objects.get_or_create(content=tag.lower())[0] for tag in tags_data]
         post.tags.set(tags)
         return post
 
@@ -77,7 +77,7 @@ class PostUpdateSerializer(serializers.ModelSerializer):
 
         if tags_data is not None:
             instance.tags.clear()
-            tags = [Tag.objects.get_or_create(content=tag['content'])[0] for tag in tags_data]
+            tags = [Tag.objects.get_or_create(content=tag['content'].lower())[0] for tag in tags_data]
             instance.tags.set(tags)
 
         instance.save()
@@ -105,7 +105,7 @@ class CommentCreateSerializer(serializers.ModelSerializer):
         tags_data = validated_data.pop('tags', [])
         comment = Comment.objects.create(**validated_data)
 
-        tags = [Tag.objects.get_or_create(content=tag)[0] for tag in tags_data]
+        tags = [Tag.objects.get_or_create(content=tag.lower())[0] for tag in tags_data]
         comment.tags.set(tags)
         return comment
 
@@ -123,7 +123,7 @@ class CommentUpdateSerializer(serializers.ModelSerializer):
 
         if tags_data is not None:
             instance.tags.clear()
-            tags = [Tag.objects.get_or_create(content=tag['content'])[0] for tag in tags_data]
+            tags = [Tag.objects.get_or_create(content=tag['content'].lower())[0] for tag in tags_data]
             instance.tags.set(tags)
 
         instance.save()

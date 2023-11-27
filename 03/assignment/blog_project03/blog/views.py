@@ -202,7 +202,7 @@ class TagListPostView(ListAPIView):
     pagination_class = PostPageNumberPagination
 
     def get_queryset(self):        
-        tag_content = self.kwargs.get('tag_content')
+        tag_content = self.kwargs.get('tag_content').lower()
         try:
             tag = Tag.objects.get(content=tag_content)
         except Tag.DoesNotExist:
@@ -216,7 +216,7 @@ class TagListCommentView(ListAPIView):
     pagination_class = CommentPageNumberPagination
 
     def get_queryset(self):
-        tag_content = self.kwargs.get('tag_content')
+        tag_content = self.kwargs.get('tag_content').lower()
         try:
             tag = Tag.objects.get(content=tag_content)
         except Tag.DoesNotExist:

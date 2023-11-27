@@ -32,8 +32,6 @@ urlpatterns = [
     path('api/posts/<int:pk>/comments', APICommentList.as_view(), name='api-comment-list'),   
     path('api/posts/<int:pk>/comments/<int:comment_pk>', APICommentDetail.as_view(), name='api-comment-detail'),   
 
-    #path('api/token', views.ExampleView.as_view()),
-    #path('api-token-auth/', views.ObtainAuthToken.as_view()),
     path('api/login/', views.LoginView.as_view(), name='api-login'),
     path('api/signup/', views.SignupView.as_view(), name='api-signup'),
 

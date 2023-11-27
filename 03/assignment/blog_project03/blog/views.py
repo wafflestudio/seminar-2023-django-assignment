@@ -5,7 +5,8 @@ from .serializers import (PostSerializer,
                           PostCreateSerializer,
                           PostUpdateSerializer,
                           CommentCreateSerializer,
-                          CommentUpdateSerializer
+                          CommentUpdateSerializer,
+                          TagSerializer
                           )
 from rest_framework.generics import (
                                     ListAPIView,
@@ -164,6 +165,7 @@ class PostUpdateView(RetrieveUpdateAPIView):
             return Post.objects.all()
         return Post.objects.filter(author=self.request.user)
 
+    
 class CommentUpdateView(RetrieveUpdateAPIView):
     model = Comment
     serializer_class = CommentUpdateSerializer

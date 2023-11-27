@@ -5,6 +5,10 @@ class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = '__all__'
+        extra_kwargs={
+            'content':{"validators":[]},
+        }
+    
 
 class UserSerializer(serializers.ModelSerializer):
     posts = serializers.StringRelatedField(many=True, read_only=True)
@@ -57,7 +61,7 @@ class PostCreateSerializer(serializers.ModelSerializer):
 
 class PostUpdateSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True, required=False)
-
+    
     class Meta:
         model = Post
         fields = ['title', 'content', 'tags']
@@ -67,13 +71,25 @@ class PostUpdateSerializer(serializers.ModelSerializer):
         tags_data = validated_data.pop('tags', None)
         instance.title = validated_data.get('title', instance.title)
         instance.content = validated_data.get('content', instance.content)
-
+        instance.save()
+        
         if tags_data is not None:
             instance.tags.clear()
-            tags = [Tag.objects.get_or_create(content=tag['content'])[0] for tag in tags_data]
-            instance.tags.set(tags)
+            tags = []
 
-        instance.save()
+            for tag_data in tags_data:
+                tag_content = tag_data['content']
+                tag = Tag.objects.get(content=tag_content)
+
+                # If tag doesn't exist, create it
+                if not tag:
+                    tag = Tag.objects.create(content=tag_content)
+
+                tags.append(tag)
+
+            instance.tags.set(tags)
+            instance.save()
+
         return instance
 
 

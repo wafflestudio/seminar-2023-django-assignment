@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import pre_delete, post_save, post_delete
+from django.db.models.signals import pre_delete, post_save, post_delete, pre_save
 from django.dispatch import receiver
 from django.contrib.auth.models import AbstractUser
 from rest_framework.authtoken.models import Token
@@ -53,7 +53,6 @@ class Comment(models.Model):
 
 class Tag(models.Model):
     content = models.CharField(max_length=20, blank=False, unique=True, primary_key=True)
-    
     def __str__(self):
         return self.content
     class Meta:
@@ -87,3 +86,15 @@ def delete_empty_tags(sender, instance, **kwargs):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+
+@receiver(post_save, sender=Post)
+def delete_empty_tags(sender, instance, **kwargs):
+    for tag in Tag.objects.all():
+        if tag.comments.count()==0 and tag.posts.count()==0:
+            tag.delete()
+            
+@receiver(post_save, sender=Comment)
+def delete_empty_tags(sender, instance, **kwargs):
+    for tag in Tag.objects.all():
+        if tag.comments.count()==0 and tag.posts.count()==0:
+            tag.delete()

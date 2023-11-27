@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import User, Post, Comment, Tag
-        
+
+
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
@@ -68,30 +69,19 @@ class PostUpdateSerializer(serializers.ModelSerializer):
         read_only_fields = ['dt_created', 'dt_updated', 'author']
 
     def update(self, instance, validated_data):
-        tags_data = validated_data.pop('tags', None)
         instance.title = validated_data.get('title', instance.title)
         instance.content = validated_data.get('content', instance.content)
         instance.save()
-        
+
+        tags_data = validated_data.pop('tags', None)
+
         if tags_data is not None:
             instance.tags.clear()
-            tags = []
-
-            for tag_data in tags_data:
-                tag_content = tag_data['content']
-                tag = Tag.objects.get(content=tag_content)
-
-                # If tag doesn't exist, create it
-                if not tag:
-                    tag = Tag.objects.create(content=tag_content)
-
-                tags.append(tag)
-
+            tags = [Tag.objects.get_or_create(content=tag['content'])[0] for tag in tags_data]
             instance.tags.set(tags)
-            instance.save()
 
+        instance.save()
         return instance
-
 
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.StringRelatedField(read_only=True)

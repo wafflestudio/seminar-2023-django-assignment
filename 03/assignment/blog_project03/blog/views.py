@@ -66,6 +66,7 @@ class PostCreateView(ListCreateAPIView):
         return instance
 
 class PostDeleteView(RetrieveDestroyAPIView):
+    queryset = Post.objects.all()
     model = Post
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticated|permissions.IsAdminUser]
@@ -73,11 +74,43 @@ class PostDeleteView(RetrieveDestroyAPIView):
     lookup_field = 'id'
     lookup_url_kwarg = 'post_id'
 
-    def get_queryset(self):
-        if(self.request.user.is_staff):
-            return Post.objects.all()
-        return Post.objects.filter(author=self.request.user)
+    def get_object(self):
+        queryset = self.get_queryset()
+        obj = get_object_or_404(queryset, **{self.lookup_field: self.kwargs[self.lookup_url_kwarg]})
+        
+        # Check if the author of the post is the same as the current user
+        if self.request.user.is_staff:
+            return obj
+        if obj.author != self.request.user:
+            self.permission_denied(
+                self.request,
+                message="You do not have permission to perform this action."
+            )
+        return obj
+    
+class PostUpdateView(RetrieveUpdateAPIView):
+    queryset = Post.objects.all()
+    model = Post
+    serializer_class = PostUpdateSerializer
+    permission_classes = [permissions.IsAuthenticated | permissions.IsAdminUser]
 
+    lookup_field = 'id'
+    lookup_url_kwarg = 'post_id'
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        obj = get_object_or_404(queryset, **{self.lookup_field: self.kwargs[self.lookup_url_kwarg]})
+        
+        # Check if the author of the post is the same as the current user
+        if self.request.user.is_staff:
+            return obj
+        if obj.author != self.request.user:
+            self.permission_denied(
+                self.request,
+                message="You do not have permission to perform this action."
+            )
+        return obj
+    
 # Comment    
 class CommentCreateView(ListCreateAPIView):
     queryset = Comment.objects.all()
@@ -104,7 +137,8 @@ class CommentListView(ListAPIView):
 
     def get_queryset(self):
         post_id = self.kwargs.get('post_id')
-        return Comment.objects.filter(post_id=post_id)
+        post = get_object_or_404(Post, pk=post_id)
+        return Comment.objects.filter(post=post)
 
 class CommentDeleteView(RetrieveDestroyAPIView):
     model = Comment
@@ -115,11 +149,52 @@ class CommentDeleteView(RetrieveDestroyAPIView):
     lookup_url_kwarg = 'comment_id'
 
     def get_queryset(self):
-        if(self.request.user.is_staff):
-            return Comment.objects.all()
         post_id=self.kwargs.get('post_id')
         comment_id=self.kwargs.get('comment_id')
-        return Comment.objects.filter(post_id=post_id, id=comment_id, author=self.request.user)
+        return Comment.objects.filter(post_id=post_id, id=comment_id)
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        obj = get_object_or_404(queryset, **{self.lookup_field: self.kwargs[self.lookup_url_kwarg]})
+        
+        if self.request.user.is_staff:
+            return obj
+
+        # Check if the author of the comment is the same as the current user
+        if obj.author != self.request.user:
+            self.permission_denied(
+                self.request,
+                message="You do not have permission to perform this action."
+            )
+        return obj
+
+class CommentUpdateView(RetrieveUpdateAPIView):
+    model = Comment
+    serializer_class = CommentUpdateSerializer
+    permission_classes = [permissions.IsAuthenticated|permissions.IsAdminUser]
+    
+    lookup_field = 'id'
+    lookup_url_kwarg = 'comment_id'
+    
+    def get_queryset(self):
+        post_id=self.kwargs.get('post_id')
+        comment_id=self.kwargs.get('comment_id')
+        return Comment.objects.filter(post_id=post_id, id=comment_id)
+    
+    def get_object(self):
+        queryset = self.get_queryset()
+        obj = get_object_or_404(queryset, **{self.lookup_field: self.kwargs[self.lookup_url_kwarg]})
+        
+        if self.request.user.is_staff:
+            return obj
+
+        # Check if the author of the comment is the same as the current user
+        if obj.author != self.request.user:
+            self.permission_denied(
+                self.request,
+                message="You do not have permission to perform this action."
+            )
+        return obj
 
 # tag
 class TagListPostView(ListAPIView):
@@ -130,9 +205,10 @@ class TagListPostView(ListAPIView):
         tag_content = self.kwargs.get('tag_content')
         try:
             tag = Tag.objects.get(content=tag_content)
-            return Post.objects.filter(tags=tag)
         except Tag.DoesNotExist:
             raise Http404("Tag not found")
+        return Post.objects.filter(tags__content__iexact=tag_content)
+        
 
 
 class TagListCommentView(ListAPIView):
@@ -143,40 +219,7 @@ class TagListCommentView(ListAPIView):
         tag_content = self.kwargs.get('tag_content')
         try:
             tag = Tag.objects.get(content=tag_content)
-            return Comment.objects.filter(tags=tag)
         except Tag.DoesNotExist:
             raise Http404("Tag not found")
-
-
-
-
-
-
-class PostUpdateView(RetrieveUpdateAPIView):
-    model = Post
-    serializer_class = PostUpdateSerializer
-    permission_classes = [permissions.IsAuthenticated | permissions.IsAdminUser]
-
-    lookup_field = 'id'
-    lookup_url_kwarg = 'post_id'
-
-    def get_queryset(self):
-        if(self.request.user.is_staff):
-            return Post.objects.all()
-        return Post.objects.filter(author=self.request.user)
-
+        return Comment.objects.filter(tags__content__iexact=tag_content)
     
-class CommentUpdateView(RetrieveUpdateAPIView):
-    model = Comment
-    serializer_class = CommentUpdateSerializer
-    permission_classes = [permissions.IsAuthenticated|permissions.IsAdminUser]
-    
-    lookup_field = 'id'
-    lookup_url_kwarg = 'comment_id'
-    
-    def get_queryset(self):
-        if(self.request.user.is_staff):
-            return Comment.objects.all()
-        post_id=self.kwargs.get('post_id')
-        comment_id=self.kwargs.get('comment_id')
-        return Comment.objects.filter(post_id=post_id, id=comment_id, author=self.request.user)

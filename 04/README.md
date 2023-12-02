@@ -16,7 +16,6 @@ GPT API를 이용해서 나만의 챗봇을 만들어보아요!
   - (창의성을 발휘해보세요!)
 - image는 SQL DB에 저장할 수 없습니다. s3를 이용한 image 저장 방법에 대해 익힙니다.
 - React frontend에 연결하는 REST API를 작성해보며, 실제 경험하게 될 백엔드 개발과 유사한 경험을 해봅니다.
-- SSL 인증서 설정을 통해 https 사이트를 설정해봅니다.
 - 기존 rest framework requirements에서 벗어난 구현을 해봅니다.
 
 ### 구현 상세

@@ -38,7 +38,7 @@ GPT API를 이용해서 나만의 챗봇을 만들어보아요!
 
 - 기재되지 않은 자세한 구현 상세는, 채팅 프론트엔드의 구현을 참고해 조금 더 유저가 편한 방향으로 결정해주세요.
   - 해당 서버 URL을 채팅 프론트엔드에 사용하면, 정답 구현을 참고할 수 있습니다.
-  - 서버 URL의 API Schema를 확인할 수 있는 swagger-ui도 참고해주세요.
+  - 서버 URL의 API Schema를 확인할 수 있는 [swagger-ui](http://live.eba-2vpgbcid.ap-northeast-2.elasticbeanstalk.com/swagger/)도 참고해주세요.
 
 ```
 http://live.eba-2vpgbcid.ap-northeast-2.elasticbeanstalk.com/

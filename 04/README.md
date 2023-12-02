@@ -22,7 +22,8 @@ GPT API를 이용해서 나만의 챗봇을 만들어보아요!
 ### 구현 상세
 - [채팅 프론트엔드](http://ec2-43-200-76-125.ap-northeast-2.compute.amazonaws.com/)에 연결할 백엔드 사이트를 배포합니다.
   - 해당 웹사이트에 들어가 본인 서버의 url을 입력하면, 본인 서버와 연결되게 할 수 있습니다.
-  - localhost도 입력 가능
+  - localhost를 테스트하기 위해서는, 브라우저에서의 추가 설정이 필요합니다.
+    - [링크 참조](https://nankisu.tistory.com/67)
 
 ![서버 입력](resources/server_url_modal.png)
 

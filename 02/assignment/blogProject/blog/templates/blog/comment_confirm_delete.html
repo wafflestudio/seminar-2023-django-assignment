@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>삭제 확인</title>
+</head>
+<h2>댓글 삭제 페이지</h2>
+
+{% if user.is_authenticated %}
+   <span>
+      <p>{{user.get_username}} 으로 로그인되었습니다. </p>
+   </span>
+
+{% else %}
+   <span>
+      현재 비회원 상태입니다.
+   </span>
+{% endif %}
+<br><br>
+
+{% if user.is_authenticated and user == comment.created_by %}
+   <form method="post">
+      {% csrf_token %}
+      <span>정말 댓글을 삭제하시겠습니까?<br>한 번 삭제된 댓글은 복구할 수 없습니다.</span>
+      <div class="buttons">
+         <br><br>
+         <a href="{% url 'post_detail' object.post.id %}">돌아가기</a>
+         <button type="submit">댓글 삭제</button>
+         </div>
+   </form>
+{% else %}
+   댓글 작성자만 댓글을 삭제할 수 있습니다.
+   <br>
+   <a href="{% url 'post_detail' object.post.id %}">돌아가기</a>
+{% endif %}
+
+
+
+

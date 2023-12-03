@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새 글 쓰기</title>
+</head>
+
+<h2>글 작성</h2>
+
+{% if user.is_authenticated %}
+   <span>
+      <p>{{user.get_username}} 으로 로그인되었습니다. </p>
+      <a href="{% url 'logout' %}">로그아웃</a>
+   </span>
+
+{% else %}
+   <span>
+      현재 비회원 상태입니다.
+   </span>
+{% endif %}
+<br><br><br>
+
+<form method = "post">
+   {%csrf_token%}
+   <div class="title">
+      제목
+      {{ form.title }}
+   </div>
+   <br>
+   <div class="description">
+      내용
+      {{ form.description }}
+   </div>
+   <br>
+   <div class="buttons">
+      <a href="{% url 'post_list' %}">작성 취소</a>
+      <button type="submit">작성 완료</button>
+   </div>
+</form>

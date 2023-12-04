@@ -1,7 +1,7 @@
 # 최종 과제: 나만의 챗봇 만들기
 
 ## 제출
-- 제출 기한: 23. 12. 20(수) 23:59:59
+- 제출 기한: 23. 12. 10(일) 23:59:59
 - 제출 방법
   - 과제 진행한 Python project 폴더를 [./assignment](./assignment/) 폴더에 첨부해주세요.
   - 해당 repository를 fork하여 작업한 후, Pull Request를 날려주세요.

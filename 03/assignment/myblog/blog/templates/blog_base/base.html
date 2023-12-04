@@ -1,0 +1,22 @@
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/styles/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/styles/theme.css' %}">
+
+    <title>{% block title %}BLOG{% endblock title %}</title>
+  </head>
+  <body>
+    <div class="blog">
+        <h1>My blog</h1>
+        <ul>
+            <li><a href="{% url 'page-list' %}">모아보기</a></li>
+            <li><a href="{% url 'page-create' %}">블로그 쓰기</a></li>
+            <li><a href="{% url 'index' %}">돌아가기</a></li>
+        </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<div class="notetext">
+    <div class="text-box">
+        <h2>{{object.title}}</h2>
+        <div class="author">
+            <p>작성자 : {{object.author}}</p>
+        </div>
+        <div class="date">
+            <p>작성일 : {{object.dt_created}}</p>
+            <p>수정일 : {{object.dt_updated}}</p>
+        </div>
+        <div class="detail">
+            <p>{{object.content|linebreaksbr}}</p>
+
+        </div>
+        {% if user.is_authenticated %}
+        <div class="notetext-btn">
+            <a href="{% url 'page-delete' object.id %}">삭제하기</a>
+            <a href="{% url 'page-update' object.id %}">수정하기</a>
+            <a href="{% url 'main-page'%}">My blog</a>
+        </div>
+        {% else %}
+        <div class="notetext-btn">
+            <a href="{% url 'index'%}">돌아가기</a>
+        </div>
+        {% endif %}
+        <hr>
+        <div class="comments">
+            <h4>댓글 목록</h4>
+            {% if object.comment_set.all %}
+                <p><b>{{ object.comment_set.all|length }}개의 댓글이 있습니다.</b></p>
+            {% endif %}
+            <ul>
+            {% for comment in object.comment_set.all %}
+                <li>
+                    {{ comment.author }} - {{ comment.content }}
+                    {% if request.user.username == comment.author %}
+                        <form action="{% url 'comments-delete' object.id comment.id %}" method="POST" class="d-inline">
+                        {% csrf_token %}
+                        <input type="submit" value="DELETE">
+                        </form>
+                    {% endif %}
+                </li>
+            {% empty %}
+                <p>댓글이 없습니다.</p>
+            {% endfor %}
+            </ul>
+
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'comments-create' object.id %}">댓글 작성</a>
+            {% else %}
+            <a>[댓글을 작성하려면 로그인하세요.]</a>
+            {% endif %}
+        </div>
+
+    </div>
+</div>

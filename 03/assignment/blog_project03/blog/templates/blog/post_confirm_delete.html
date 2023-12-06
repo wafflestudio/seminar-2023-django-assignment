@@ -1,0 +1,23 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>삭제 확인</title>
+  </head>
+  <body>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <h1>{{ post.title }}</h1>
+            <li>수정된 날: {{ post.dt_updated|date:"Y년 n월 j일" }} | 만들어진 날: {{ post.dt_created|date:"Y년 n월 j일" }}</li>
+            <h2>정말 삭제하시겠습니까?</h2>
+        </div>
+
+        <div>
+            <button type="submit">삭제</button>
+            <a href="{% url 'post-detail' post.id %}">취소</a>
+        </div>
+    </form>
+  </body>
+</html>

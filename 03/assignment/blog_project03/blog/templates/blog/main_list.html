@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>와플 세미나용 블로그</title>
+  </head>
+  <body>
+
+    <header>    
+      <h1>와플 쟝고 세미나용 블로그 페이지</h1>
+      <div>
+        {% if user.is_authenticated %}
+          <a href="{% url 'account_logout' %}">로그아웃</a>
+        {% else %}
+          <a href="{% url 'account_login' %}">로그인</a>
+          <a href="{% url 'account_signup' %}">회원가입</a>
+        {% endif %}
+      </div>
+    </header>
+
+    <div>
+      {% csrf_token %}
+      {% if user.is_authenticated %}
+        <a href="{% url 'post-create' %}">글쓰기</a>
+      {% endif %}
+    </div>
+    <div>
+      <h2>포스터 목록</h2>
+      {% for post in post_list %}
+        <li><a href="{% url 'post-detail' post.id %}">{{ post.title }}</a></li>
+      {% empty %}
+        <p>아직 포스팅이 없어요!</p>
+      {% endfor %}
+    </div>
+
+  </body>
+</html>

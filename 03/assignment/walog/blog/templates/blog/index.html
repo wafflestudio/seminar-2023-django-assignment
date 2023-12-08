@@ -1,0 +1,46 @@
+<navbar>
+    {% if user.is_authenticated %}
+        <a href="{% url 'account_logout' %}">로그아웃</a>
+        <a href="{% url 'account_change_password' %}">비밀번호 변경</a>
+    {% else %}
+        <a href="{% url 'login' %}">로그인</a>
+        <a href="{% url 'signup' %}">회원가입</a>
+    {% endif %}
+
+    <br>
+    <br>
+    <a href="{% url 'api-login' %}">api 로그인</a>
+    <a href="{% url 'api-signup' %}">api 회원가입</a>
+    <br>
+    <br>
+    <a href="{% url 'api-post-list' %}">api post list</a>
+
+    <br>
+    api 설명
+    <br>
+    post list url에서 뒤에 /pk 붙이면 해당 id를 가진 post로 넘어감
+    <br>
+    /pk/comments 붙이면 해당 post에 달린 comment 확인 가능
+    <br>
+    로그인 되어있지 않으면 api 조회 불가
+</navbar>
+
+
+<h1>홈페이지</h1>
+
+{% if user.is_authenticated %}
+    <p>안녕하세요, {{user}}님!</p>
+{% else %}
+    <p>로그아웃된 상태입니다.</p>
+{% endif %}
+
+
+
+<div>
+    <a href="{% url 'post-create' %}">새 글 쓰기</a>
+</div>
+
+<div>
+    <a href="{% url 'post-list' %}">글 목록</a>
+</div>
+

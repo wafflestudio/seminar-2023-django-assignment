@@ -1,0 +1,55 @@
+{% load static %}
+
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ post.title }}</title>
+  </head>
+  <body>
+
+    <header>    
+      <h2>{{ post.title }}</h2>
+    </header>
+
+    <div>
+        <p>{{ post.content|linebreaksbr }}</p>
+    </div>
+
+    작성일: {{ post.dt_created|date:"Y년 n월 j일" }} | 마지막 수정일: {{ post.dt_updated|date:"Y년 n월 j일" }} | {{ post.author.username }}
+    
+    <div>
+        <a href="{% url 'main' %}">목록으로</a>
+        {% if post.author == user %}
+            <div>
+                <a href="{% url 'post-delete' post.id %}">삭제</a> | 
+                <a href="{% url 'post-update' post.id %}">수정</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <div>
+    <form action="{% url 'comment-create' post.id %}" method="post">
+        {% csrf_token %}
+        {% if user.is_authenticated %}
+          {{ form.content|attr:"placeholder:댓글 내용을 입력해주세요."|add_class:"cp-input" }}
+          <button type="submit">등록</button>
+        {% endif %}
+    </form>
+    </div>
+        {% for comment in post.comments.all %}
+            <div>
+                {{ comment.author.username }}
+            </div>
+            <div>
+                {{ comment.content|linebreaksbr }}
+            </div>
+            <div>
+                {{ comment.dt_created|date:"Y년 n월 j일" }}
+            </div>
+        {% endfor %}
+    </div>
+
+  </body>
+</html>

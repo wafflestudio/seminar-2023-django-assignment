@@ -372,4 +372,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# elastic beanstalk
+.elasticbeanstalk/
+ebextensions/
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,pycharm,django,python,windows

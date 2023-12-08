@@ -1,0 +1,5 @@
+<p>로그아웃 되었습니다.</p>
+<form method="post" action="{% url 'login' %}">
+  {% csrf_token %}
+  <button type="submit">로그인</button>
+</form>

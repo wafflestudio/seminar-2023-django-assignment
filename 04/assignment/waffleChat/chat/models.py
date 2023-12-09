@@ -1,3 +1,18 @@
 from django.db import models
 
-# Create your models here.
+
+class Character(models.Model):
+    image = models.ImageField()
+    first_name = models.CharField(max_length=10)
+    last_name = models.CharField(max_length=10)
+
+
+class Chat(models.Model):
+    ROLE_CHOICES = [
+        ('assistant', 'Assistant'),
+        ('user', 'User'),
+    ]
+
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES)
+    content = models.TextField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)

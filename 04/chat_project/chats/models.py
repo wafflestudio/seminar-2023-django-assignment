@@ -1,8 +1,8 @@
 from django.db import models
 
 class Chat(models.Model):
-    role = models.CharField(max_length=100, choices=(("assistant", "캐릭터"),("user", "유저")))
-    content = models.CharField(max_length=500)
+    role = models.CharField(max_length=100, choices=(("assistant", "캐릭터"), ("user", "유저")))
+    content = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

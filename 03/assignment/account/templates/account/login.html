@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+    <html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 | LARGE</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <h3>이미 로그인 하셨습니다.</h3>
+    {% else %}
+        <h3>로그인하세요</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">로그인하기!</button>
+        </form>
+        <p>아직 회원이 아니신가요?</p>
+        <a href="{% url 'signup-page' %}">회원가입하기!</a>
+    {% endif %}
+    <br>
+    <a href="{% url 'post-index' %}">메뉴로 돌아가기</a>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>{{ post.title }}</title>
+    </head>
+    <body>
+        <h1>{{ post.title }}</h1>
+        <h5>작성자: {{ post.author }} | 작성일: {{ post.dt_created|date:"Y년 n월 j일" }}</h5>
+        <br><br>
+        <h3>{{ post.content }}</h3>
+        <br><br>
+        <h6>최종 수정 시간: {{ post.dt_updated|date:"Y년 n월 j일" }}</h6>
+        {% if post.author.id == user.id %}
+            <a href="{% url 'post-update' post.id %}">수정하기</a>
+            <a href="{% url 'post-delete' post.id %}">삭제하기</a>
+        {% endif %}
+        <br><h4>댓글들</h4>
+
+        {% if user.is_authenticated %}
+            <form method="POST">
+                {% csrf_token %}
+                <label>
+                    <input type="text" name="content" maxlength="100" placeholder="댓글 작성하기(100자 이내)">
+                </label>
+                <button type = 'submit'>댓글 작성하기</button>
+            </form>
+        {% endif %}
+
+
+        {% for comment in comments %}
+            <p>{{ comment.author }} | {{ comment.content }} |
+            {% if comment.dt_created == comment.dt_updated %}
+                 {{ comment.dt_created|date:" (Y.n.j. 작성)" }}
+            {% else %}
+                 {{ comment.dt_updated|date:" (Y.n.j. 수정)" }}
+            {% endif %}
+            </p>
+            {% if comment.author.id == user.id %}
+                <a href="{% url 'comment-update' post.id comment.id %}">수정하기</a>
+                <a href="{% url 'comment-delete' post.id comment.id %}">삭제하기</a>
+            {% endif %}
+        {% empty %}
+            <p>아직 댓글이 없어요!</p>
+        {% endfor %}
+        <br><br><br>
+        <a href="{% url 'index' %}">메뉴로 돌아가기</a>
+    </body>
+</html>

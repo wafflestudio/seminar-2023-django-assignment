@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>댓글 수정하기</title>
+    </head>
+    <body>
+<h1>댓글 수정하기</h1>
+
+<h2>수정 전 댓글</h2>
+<p>{{ comment_o.content }}</p>
+<br><br><br>
+<form method="POST">
+    {% csrf_token %}
+    <div>
+        <label>
+            <input type="text" name="content" maxlength="50" placeholder="다시 작성하기(100자 이내)">
+        </label>
+    </div>
+    <button type="submit">댓글 수정 완료하기</button>
+    <a href="posts/{{ pid }}">게시글로 돌아가기</a>
+</form></body></html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }} | LARGE</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <h6>작성자: {{ post.created_by.nickname }}</h6>
+    <h6>작성일: {{ post.created_at }}{% if post.updated_at != post.created_at %}(수정됨) {{ post.updated_at }}{% endif %}</h6>
+    <h3>{{ post.description }}</h3>
+    <h5>{% for tag in tags %}#{{ tag.content }} {% endfor %}</h5>
+    <br><br>
+
+    {% if post.created_by == user %}
+        <a href="{% url 'post-update' post.id %}">수정하기</a>
+        <a href="{% url 'post-delete' post.id %}">삭제하기</a>
+        <br><br>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <form action="{% url 'comment-create' post.id %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">댓글 작성!</button>
+        </form>
+    {% else %}
+        <p>로그인을 해야 댓글을 쓸 수 있어요!</p>
+        <a href = "{% url 'login-page' %}">로그인</a>
+    {% endif %}
+    <br><br>
+
+    <h3>댓글 목록</h3>
+    {% if user.is_superuser %}
+        <p>관리자 권한 활성화</p>
+    {% endif %}
+    {% for comment_unit in comments %}
+        <p>-----------------------</p>
+        <p>{{ comment_unit.content }} | {{ comment_unit.created_by.nickname }} | {% if not comment_unit.is_updated %} {{ comment_unit.created_at }} {% else %} (수정됨){{ comment_unit.updated_at }}{% endif %}</p>
+
+        {% if comment_unit.created_by == user or user.is_superuser %}
+            <a href = "{% url 'comment-update' comment_unit.id %}">수정하기</a> <a href = "{% url 'comment-delete' comment_unit.id %}">삭제하기</a>
+        {% endif %}
+    {% empty %}
+        <p>-----------------------</p>
+        <p>아직 댓글이 없어요!</p>
+    {% endfor %}
+    <br><br>
+
+    <a href="{% url 'post-index' %}">메뉴로 돌아가기</a>
+</body>
+</html>

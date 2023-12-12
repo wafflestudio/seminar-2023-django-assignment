@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>신규 글 작성 | LARGE</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">작성완료!</button>
+    </form>
+    <a href="{% url 'post-index' %}">메뉴로 돌아가기</a>
+</body>
+</html>

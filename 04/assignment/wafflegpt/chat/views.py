@@ -3,6 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.shortcuts import redirect
 from drf_yasg.utils import swagger_auto_schema
 
 from rest_framework.views import APIView
@@ -29,11 +30,11 @@ class InfoView(RetrieveAPIView):
 class ChatListCreateView(ListCreateAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         if not Chat.objects.exists():
-            Chat.objects.create(role="system",
+            Chat.objects.create(role="assistant",
                                 content=Character.objects.first().first_message)
-        return self.get(request)
+        return self.list(request, *args, **kwargs)
 
     def post(self, request):
         serializer = ChatSerializer(data=request.data)
@@ -42,12 +43,11 @@ class ChatListCreateView(ListCreateAPIView):
             serializer.save()
             
             response = ChatSerializer(data={
-                'role': 'system',
                 'content': chatgpt.make_response(serializer.data['content'])
             })
             if response.is_valid(raise_exception=True):
-                response.save()
-                return Response(response.data, status=200)
+                response.save(role="assistant")
+                return Response(response.data, 200)
             return Response(response.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -60,3 +60,6 @@ class ChatDeleteView(APIView):
     def delete(self, request):
         Chat.objects.all().delete()
         return Response({'message' : 'ok'})
+
+def go_to_character_info(request):
+    return redirect('character-info')

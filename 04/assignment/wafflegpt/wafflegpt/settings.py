@@ -32,9 +32,9 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = 'django-insecure-+n)))*jak44ya-@(pw)jrwmehu06y7j-#5$@0&4=$^qg&m@lqh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['Waffle04-env.eba-zyrb2gyk.ap-northeast-2.elasticbeanstalk.com', '127.0.0.1']
 
 
 # Application definition
@@ -51,9 +51,11 @@ INSTALLED_APPS = [
     'chat',
     'storages',
     'openai',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -150,3 +152,6 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_
 
 MEDIA_URL = "https://%s/media/" % AWS_S3_CUSTOM_DOMAIN
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+CORS_ORIGIN_ALLOW_ALL = True

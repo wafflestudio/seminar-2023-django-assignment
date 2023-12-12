@@ -20,7 +20,7 @@ from . import views
 from .views import InfoView, ChatListCreateView, ChatDeleteView
 
 urlpatterns = [
-    path('character/', InfoView.as_view()),
+    path('character/', InfoView.as_view(), name='character-info'),
     path('chats/', ChatListCreateView.as_view()),
     path('chats/delete-all', ChatDeleteView.as_view()),
 ]

@@ -10,5 +10,5 @@ class ChatSerializer(serializers.ModelSerializer):
 class CharacterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Character
-        fields = ['id', 'first_name', 'last_name']
-        read_only_fields = ['id']
+        fields = ['id', 'first_name', 'last_name', 'image']
+        read_only_fields = ['id', 'image']

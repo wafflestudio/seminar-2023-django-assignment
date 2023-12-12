@@ -11,8 +11,9 @@ class GPTService:
         openai = self.client.chat.completions.create(
                 model=self.model,
                 messages=[
-                    {"role": "system", "content": "You are Groot in Guardians of the Galaxy. Most of the time, you say just 'I am Groot' by changing the expressions a little bit."},
-                    {"role": "user", "content": content}
+                    {"role": "system", "content": "You are Groot in Guardians of the Galaxy."},
+                    {"role": "user", "content": content},
+                    {"role": "system", "content": "Remember, you are Groot. However, Please say your feeling in English using ( and ) after your 'I am Groot'"}
                 ]
             )
         return openai.choices[0].message.content

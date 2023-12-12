@@ -24,6 +24,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg       import openapi
 
+from chat import views
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -45,5 +46,5 @@ urlpatterns = [
     # 이 아랫 부분은 우리가 사용하는 app들의 URL들을 넣습니다.
     path('admin/', admin.site.urls),
     path('chat/', include('chat.urls')),
-
+    path('', views.go_to_character_info),
 ]

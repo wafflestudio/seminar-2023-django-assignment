@@ -1,0 +1,62 @@
+from django.shortcuts import render
+
+# Create your views here.
+from django.shortcuts import render
+from django.http import JsonResponse
+from drf_yasg.utils import swagger_auto_schema
+
+from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView
+from rest_framework.response import Response
+from rest_framework import status
+
+from .services import chatgpt
+from .models import Chat, Character
+from .serializers import ChatSerializer, CharacterSerializer
+# Create your views here.
+from openai import OpenAI
+
+
+class InfoView(RetrieveAPIView):
+    serializer_class = CharacterSerializer
+    queryset = Character.objects.first()
+    #admin을 통해 미리 character 만듦
+    def retrieve(self, request, *args, **kwargs):
+        instance = Character.objects.first()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+class ChatListCreateView(ListCreateAPIView):
+    queryset = Chat.objects.all()
+    serializer_class = ChatSerializer
+    def get(self, request):
+        if not Chat.objects.exists():
+            Chat.objects.create(role="system",
+                                content=Character.objects.first().first_message)
+        return self.get(request)
+
+    def post(self, request):
+        serializer = ChatSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(role="user")
+            serializer.save()
+            
+            response = ChatSerializer(data={
+                'role': 'system',
+                'content': chatgpt.make_response(serializer.data['content'])
+            })
+            if response.is_valid(raise_exception=True):
+                response.save()
+                return Response(response.data, status=200)
+            return Response(response.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ChatDeleteView(APIView):
+    def post(self, request):
+        Chat.objects.all().delete()
+        return Response({'message' : 'ok'})
+    
+    def delete(self, request):
+        Chat.objects.all().delete()
+        return Response({'message' : 'ok'})

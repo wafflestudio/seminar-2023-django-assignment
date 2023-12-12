@@ -1,26 +1,11 @@
 from openai import OpenAI
+import os
 from .models import Chat, Character
-
-'''
-def make_response():
-    client = OpenAI()
-    my_message = [{"role": "system", "content": "You are a mad scientist."}]
-    for single_chat in Chat.objects.order_by("created_at"):
-        my_message += [{"role": single_chat.role, "content": single_chat.content}]
-    print(my_message)
-
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=my_message
-    )
-    new_message = response.choices[0].message.content
-    return new_message
-'''
 
 
 class GPTService:
     def __init__(self):
-        self.myclient = OpenAI()
+        self.myclient = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         self.mymodel = "gpt-3.5-turbo"
         self.current_messages = []
 
@@ -37,5 +22,6 @@ class GPTService:
             messages=self.make_messages()
         )
         return response.choices[0].message.content
+
 
 gpt = GPTService()

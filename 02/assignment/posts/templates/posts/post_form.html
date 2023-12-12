@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>신규 글 작성</title>
+    </head>
+    <body>
+        <h1>글 작성하기</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div>
+                <label>
+                    <input type="text" name="title" maxlength="50" placeholder="제목 작성하기(50자 이내)">
+                </label>
+            </div>
+            <div>
+                <label>
+                    <textarea name="content" cols="40" rows="10" placeholder="본문 작성하기"></textarea>
+                </label>
+            </div>
+            <button type="submit">글 작성 완료하기</button>
+            <a href="{% url 'index' %}">메뉴로 돌아가기</a>
+        </form>
+    </body>
+</html>

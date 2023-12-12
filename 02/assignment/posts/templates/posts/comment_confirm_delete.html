@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>댓글 수정 확인</title>
+    </head>
+    <body>
+<p>{{comment.content}}</p>
+<p>삭제하시겠습니까?</p>
+<form method="POST">{% csrf_token %}
+    <div>
+        <input type="submit" value="삭제하기">
+    </div>
+</form></body></html>

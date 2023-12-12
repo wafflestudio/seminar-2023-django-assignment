@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그아웃 확인 | LARGE</title>
+</head>
+<body>
+    {% if not user.is_authenticated %}
+        <h3>로그인하지 않은 상태입니다.</h3>
+    {% else %}
+        <h3>정말 로그아웃 하시겠습니까?</h3>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">로그아웃</button>
+        </form>
+    {% endif %}
+    <br>
+    <a href="{% url 'post-index' %}">메뉴로 돌아가기</a>
+</body>
+</html>

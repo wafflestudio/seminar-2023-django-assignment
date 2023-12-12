@@ -9,9 +9,13 @@ from rest_framework.response import Response
 from django.shortcuts import redirect
 
 
-class CharacterInfoAPI(APIView):
-    def get(self, request):
-        serializer = CharacterSerializer(Character.objects.first())
+class CharacterInfoAPI(generics.RetrieveAPIView):
+    serializer_class = CharacterSerializer
+    queryset = Character.objects.first()
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = Character.objects.first()
+        serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
 
@@ -38,7 +42,7 @@ class ChatDestroyAPI(APIView):
             Chat.objects.first().delete()
         return Response({'message': 'ok'}, status=status.HTTP_200_OK)
 
-    def get(self, request):
+    def post(self, request):
         self.delete(request)
         return Response({'message': 'ok'}, status=status.HTTP_200_OK)
 

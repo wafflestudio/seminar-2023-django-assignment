@@ -6,6 +6,8 @@ from rest_framework.views import APIView
 from rest_framework import generics, status
 from rest_framework.response import Response
 
+from django.shortcuts import redirect
+
 
 class CharacterInfoAPI(APIView):
     def get(self, request):
@@ -39,3 +41,7 @@ class ChatDestroyAPI(APIView):
     def get(self, request):
         self.delete(request)
         return Response({'message': 'ok'}, status=status.HTTP_200_OK)
+
+
+def go_to_character_info(request):
+    return redirect('character-info')

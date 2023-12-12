@@ -14,5 +14,5 @@ class Chat(models.Model):
     ]
 
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
-    content = models.TextField(max_length=100)
+    content = models.TextField(max_length=300)
     created_at = models.DateTimeField(auto_now_add=True)

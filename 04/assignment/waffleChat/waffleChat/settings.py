@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-nsdxakg8xr6$i35w^95w8zmyx*3nho6^$f&so%#kg7c_ffnie!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'drf_yasg',
     'rest_framework',
     'corsheaders',
     'chat',

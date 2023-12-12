@@ -7,8 +7,14 @@ from .openai_utils import generate_openai_response
 
 # Character List는 오직 GET 요청만 받음
 class CharacterListView(generics.ListAPIView):
-    queryset = Character.objects.all()
-    serializer_class = CharacterSerializer
+    def get(self, request, *args, **kwargs):
+        queryset = Character.objects.all()
+        serializer = CharacterSerializer(queryset, many=True)
+
+        # Extract the first item from the serialized data
+        character_data = serializer.data[0] if serializer.data else {}
+
+        return Response(character_data)
 
 
 # GET과 POST를 한 url에서 처리하기 위한 view 구현

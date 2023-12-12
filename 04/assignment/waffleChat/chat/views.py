@@ -1,10 +1,8 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
-from openai import OpenAI
 from .models import Character, Chat
 from .serializers import CharacterSerializer, ChatSerializer
-from django.conf import settings
-
+from .openai_utils import generate_openai_response
 
 
 # Character List는 오직 GET 요청만 받음
@@ -18,35 +16,36 @@ class ChatListCreateView(generics.ListCreateAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
 
+    def get(self, request, *args, **kwargs):
+        if not Chat.objects.exists():
+            initial_openai_response = generate_openai_response("자기소개 해줘.")
+
+            initial_serializer = self.get_serializer(data={'role': 'assistant', 'content': initial_openai_response})
+            initial_serializer.is_valid(raise_exception=True)
+            initial_serializer.save()
+
+            self.queryset = Chat.objects.all()
+
+        return super().get(request, *args, **kwargs)
+
     def post(self, request, *args, **kwargs):
         user_input = request.data.get('content', '')
 
-        openai_response = self.generate_openai_response(user_input)
+        openai_response = generate_openai_response(user_input)
 
-        serializer = self.get_serializer(data={'role': 'user', 'content': user_input})
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+        user_serializer = self.get_serializer(data={'role': 'user', 'content': user_input})
+        user_serializer.is_valid(raise_exception=True)
+        user_serializer.save()
 
         assistant_serializer = self.get_serializer(data={'role': 'assistant', 'content': openai_response})
         assistant_serializer.is_valid(raise_exception=True)
         assistant_serializer.save()
 
-        return Response({'message': 'ok'}, status=status.HTTP_201_CREATED)
+        # POST 요청의 response body로 받기 위한 데이터 지정
+        assistant_response = Chat.objects.latest('created_at')
+        assistant_response_data = self.get_serializer(assistant_response).data
 
-    def generate_openai_response(self, user_input):
-        client = OpenAI(
-            api_key = settings.OPENAI_API_KEY,
-        )
-        response = client.chat.completions.create(
-            messages=[
-                {
-                    'role': 'user',
-                    'content': user_input,
-                }
-            ],
-            model='gpt-3.5-turbo',
-        )
-        return response.choices[0].message.content
+        return Response(assistant_response_data, status=status.HTTP_201_CREATED)
 
 
 # POST와 DELETE을 한 url에서 처리하기 위한 view 구현

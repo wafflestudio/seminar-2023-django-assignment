@@ -1,0 +1,18 @@
+<navbar>
+  {% if user.is_authenticated %}
+    <a href="{% url 'account_logout' %}">Logout</a>
+  {% else %}
+    <a href="{% url 'account_login' %}">Login</a>
+    <a href="{% url 'account_signup' %}">Register</a>
+  {% endif %}
+<h1>Home</h1>
+
+  {% if user.is_authenticated %}
+    <p> Hello, {{ user.username }}!! </p>
+    {% comment %} <a href="{% url 'change_profile' %}">Change Profile</a> {% endcomment %}
+  {% else %}
+    <p> Hello, guest!! </p>
+  {% endif %}
+</navbar>
+<hr>
+<a href="{% url 'posts_list' %}">Posts</a>

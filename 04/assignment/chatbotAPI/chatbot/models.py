@@ -9,6 +9,10 @@ class Character(models.Model):
     def get_first_message(self):
         return self.first_message
 
+    def __string__(self):
+        name = self.last_name + self.first_name
+        return name
+
 
 class Chat(models.Model):
     ASSISTANT = 'A'

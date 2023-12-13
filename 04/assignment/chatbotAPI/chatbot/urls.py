@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .views import CharacterRetrieveAPI, ChatListCreateAPI, ChatDeleteAPI
+from .views import CharacterListAPI, ChatListCreateAPI, ChatDeleteAPI
 
 urlpatterns = [
-    path('character/', CharacterRetrieveAPI.as_view()),
+    path('character/', CharacterListAPI.as_view()),
     path('chats/', ChatListCreateAPI.as_view()),
     path('chats/delete-all/', ChatDeleteAPI.as_view()),
 ]

@@ -1,13 +1,17 @@
 from django.db import models
 
 class Character(models.Model):
-    image = models.ImageField(upload_to='images/')
+    image = models.FileField()
     first_name = models.CharField(max_length=100, null=True)
     last_name = models.CharField(max_length=100, null=True)
     first_message = models.CharField(max_length=200)
+    character_description = models.TextField(null=True)
 
     def get_first_message(self):
         return self.first_message
+
+    def get_character_description(self):
+        return self.character_description
 
     def __string__(self):
         name = self.last_name + self.first_name

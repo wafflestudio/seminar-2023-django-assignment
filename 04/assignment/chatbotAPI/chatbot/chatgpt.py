@@ -3,16 +3,14 @@ from decouple import config
 
 from openai import OpenAI
 
-from .models import Character
+from chatbot.models import Character
 from chatbotAPI import settings
-
-openai.api_key = config('OPENAI_API_KEY')
 
 class Chatgpt(OpenAI):
     def __init__(self, model='gpt-3.5-turbo'):
-        super().__init__(api_key=config('OPENAI_API_KEY'))
+        super().__init__(api_key=settings.OPENAI_API_KEY)
         self.model = model
-        self.messages = []
+        self.messages = [{'role': 'system', 'content': Character.objects.first().get_character_description()}]
 
     def ask(self, question):
         self.messages.append({

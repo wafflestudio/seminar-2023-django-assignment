@@ -15,6 +15,7 @@ import os
 import pymysql
 pymysql.install_as_MySQLdb()
 
+# Now boto3 will log all the AWS requests to the console.
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -119,18 +120,14 @@ AUTH_PASSWORD_VALIDATORS = [
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'blaze-chatbot-bucket'
-
-
-AWS_DEFAULT_ACL = 'public-read'
 AWS_QUERYSTRING_AUTH = False
-
 AWS_REGION = 'ap-northeast-2'
-
+AWS_S3_ADDRESSING_STYLE = "auto"
+AWS_S3_SIGNATURE_VERSION = "s3v4"
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME,AWS_REGION)
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
-
 MEDIA_URL = "https://%s/media/" % AWS_S3_CUSTOM_DOMAIN
 
 # Use Amazon S3 for storage for uploaded media files.

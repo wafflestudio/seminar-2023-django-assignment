@@ -1,14 +1,19 @@
 from rest_framework import status
-from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView, ListAPIView, GenericAPIView
+from rest_framework.generics import ListCreateAPIView,RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView, ListAPIView, GenericAPIView
 from rest_framework.response import Response
 from .models import Character, Chat
 from .openai import create_openai_response
 from .serializers import CharacterSerializer, ChatSerializer
 
-class CharacterList(ListAPIView):
-    queryset = Character.objects.all()
-    serializer_class = CharacterSerializer        
-        
+class InfoView(RetrieveAPIView):
+    serializer_class = CharacterSerializer
+    queryset = Character.objects.first()
+    #admin으로 만들어둔 character를 불러와서 사용할 것임.
+    def retrieve(self, request, *args, **kwargs):
+        first_instance = Character.objects.first()
+        serializer = self.get_serializer(first_instance)
+        return Response(serializer.data)
+    
 class ChatListCreateView(ListCreateAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer

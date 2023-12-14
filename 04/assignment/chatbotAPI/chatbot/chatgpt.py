@@ -23,12 +23,12 @@ class Chatgpt(OpenAI):
         return res
 
     def __ask__(self):
-        completion = openai.ChatCompletion.create(
+        completion = self.chat.completions.create(
             # model 지정
             model=self.model,
             messages=self.messages
         )
-        response = completion.choices[0].message['content']
+        response = completion.choices[0].message.content
         self.messages.append({
             'role': 'assistant',
             'content': response

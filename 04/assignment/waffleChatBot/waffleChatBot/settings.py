@@ -131,7 +131,7 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
 
-MEDIA_URL = "https://%s/media/shaman.png" % AWS_S3_CUSTOM_DOMAIN
+MEDIA_URL = "https://%s/media/" % AWS_S3_CUSTOM_DOMAIN
 
 # Use Amazon S3 for storage for uploaded media files.
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

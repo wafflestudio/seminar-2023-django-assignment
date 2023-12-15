@@ -1,53 +1,15 @@
-from django.shortcuts import render
-
-# Create your views here.
-from django.shortcuts import render
-from django.http import JsonResponse
 from django.shortcuts import redirect
-from drf_yasg.utils import swagger_auto_schema
 
-from rest_framework.views import APIView
-from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveAPIView, CreateAPIView, DestroyAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from .services import chatgpt
+from .services import Chatgpt
 from .models import Chat, Character
 from .serializers import ChatSerializer, CharacterSerializer
 
-from openai import OpenAI
 
-class ChatListView(ListCreateAPIView):
-    
-    queryset = Chat.objects.all()
-    serializer_class = ChatSerializer
-    
-    def get(self, request, *args, **kwargs):
-        if not Chat.objects.exists():
-            Chat.objects.create(role='assistant',
-                                content=Character.objects.first().first_message)
-        
-        return self.list(request, *args, **kwargs)
-
-    def post(self, request):
-        
-        serializer = ChatSerializer(data=request.data)
-        
-        if serializer.is_valid(raise_exception=True):
-            serializer.save(role='user')
-            serializer.save()
-
-            response = ChatSerializer(data={
-                'content': chatgpt.make_response(serializer.data['content'])
-            })
-            if response.is_valid(raise_exception=True):
-                response.save(role='assistant')
-                return Response(response.data, 200)
-            return Response(response.errors, status=status.HTTP_400_BAD_REQUEST)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class CharacterInfoView(RetrieveAPIView):
-    
+class CharacterRetrieveView(RetrieveAPIView):
     serializer_class = CharacterSerializer
     queryset = Character.objects.first()
 
@@ -56,14 +18,39 @@ class CharacterInfoView(RetrieveAPIView):
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
-class ChatDeleteView(APIView):
-    def post(self, request):
-        Chat.objects.all().delete()
-        return Response({'message' : 'ok'})
+class ChatListView(ListCreateAPIView):
+    queryset = Chat.objects.all()
+    serializer_class = ChatSerializer
+    chatgpt = Chatgpt()
 
-    def delete(self, request):
-        Chat.objects.all().delete()
-        return Response({'message' : 'ok'})
+    def get(self, request, *args, **kwargs):
+        if not self.get_queryset().exists():
+            Chat.objects.create(
+                role='assistant',
+                content=Character.objects.first().get_first_message(),
+            )
+        return self.list(request, *args, **kwargs)
+
+    def perform_create(self, serializer):
+        user_query = self.request.data.get('content')
+        serializer.save(role='user')
+
+        gpt_serializer = ChatSerializer(data={'role': 'assistant', 'content': self.chatgpt.ask(user_query)})
+
+        if gpt_serializer.is_valid():
+            gpt_serializer.save(role='assistant')
+
+
+class ChatDeleteView(DestroyAPIView, CreateAPIView):
+    queryset = Chat.objects.all()
+    serializer_class = ChatSerializer
+
+    def post(self, request, *args, **kwargs):
+        return self.delete(self, request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        self.get_queryset().delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 def go_to_character_info(request):
     return redirect('character-info')

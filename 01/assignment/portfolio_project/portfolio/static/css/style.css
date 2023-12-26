@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gabarito&family=Noto+Sans+KR&display=swap');
 
 /* NAVBAR */
 
 #navbar {
-    font-family: Pretendard serif;
+    font-family: Gabarito, Noto Sans KR;
     background-size: cover;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 15px 20px;
@@ -58,15 +58,15 @@
 /* MAIN */
 
 .main {
-    font-family: Pretendard serif;
-    background-color: #FFFFFF;
+    font-family: Gabarito, Noto Sans KR;
+    background-color: #d9d9d9;
     font-size: 16px;
 }
 
 /* SECTION NO 1 */
 
 .section-1 {
-    background-color: #F2F2F2;
+    background-color: #917777;
     height: 450px;
     padding: 0px;
 }
@@ -130,7 +130,7 @@
 .section-2 {
     margin: 60px 0 0 0;
     padding: 100px 0px 50px 0px;
-    font-family: Pretendard serif;
+    font-family: Gabarito, Noto Sans KR;
 }
 
 .primary-heading {
@@ -227,7 +227,7 @@
 /* SECTION NO 3 */
 
 .section-3 {
-    font-family: Pretendard serif;
+    font-family: Gabarito, Noto Sans KR;
     padding: 50px 0px 50px 0px;
     position: relative;
 }
@@ -261,7 +261,7 @@
 }
 
 .sec3-btn-right {
-    font-family: Pretendard serif;
+    font-family: Gabarito, Noto Sans KR;
     padding: 10px 30px;
     border: 1px solid #000000;
     color: #000000;
@@ -284,7 +284,7 @@
 .background-section-3 {
     height: 300px;
     width: 100%;
-    background-color: #E5E5E5;
+    background-color: #f7ddbb;
     position: absolute;
     left: 0;
     margin-top: -180px;
@@ -393,7 +393,7 @@
 }
 
 .sec4-btn {
-    font-family: Pretendard serif;
+    font-family: Gabarito, Noto Sans KR;
     color: #FFFFFF;
     background-color: #000000;
     letter-spacing: 2px;
@@ -526,7 +526,7 @@
 }
 
 .section-5-text {
-    font-family: Pretendard serif;
+    font-family: Gabarito, Noto Sans KR;
     font-size: 42px;
     font-weight: 300;
     line-height: 1.6;
@@ -733,7 +733,7 @@
 }
 
 .sec5-btn {
-    font-family: Pretendard serif;
+    font-family: Gabarito, Noto Sans KR;
     color: #FFFFFF;
     background-color: #000000;
     letter-spacing: 2px;
@@ -817,7 +817,7 @@
 }
 
 .sec6-btn {
-    font-family: Pretendard serif;
+    font-family: Gabarito, Noto Sans KR;
     color: #000000;
     letter-spacing: 2px;
     cursor: pointer;
@@ -829,7 +829,7 @@
 }
 
 .sec6-btn-see-all {
-    font-family: Pretendard serif;
+    font-family: Gabarito, Noto Sans KR;
     color: #FFFFFF;
     background-color: #000000;
     letter-spacing: 2px;
@@ -976,7 +976,7 @@
 .contact-form-div {
     background-color: #F8F9FA;
     padding: 50px !important;
-    font-family: Pretendard serif;
+    font-family: Gabarito, Noto Sans KR;
 }
 
 #custom-input1,
@@ -1092,7 +1092,7 @@
 
 .section-7-text {
     font-size: 24px;
-    font-family: Pretendard serif;
+    font-family: Gabarito, Noto Sans KR;
     font-weight: 400;
     line-height: 1.6;
     color: #FFFFFF;

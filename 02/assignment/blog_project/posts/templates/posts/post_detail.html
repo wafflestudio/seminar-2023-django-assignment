@@ -1,0 +1,42 @@
+{% extends './base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="title">{{post.title}}</h1>
+  </div>
+  
+    <div class="content">
+        <p> 작성자: {{ post.author }}</p> <br>
+        <p class="text">{{post.content|linebreaksbr}}</p> <br>
+        <p class="date_md">수정일 <span>{{post.dt_modified}}</span></p>
+    </div>
+
+    {% if user.is_authenticated %}
+      <div class="comment-form">
+        <form method="post"> {% csrf_token %}
+          {{ comment_form.as_p }}
+          <button type="submit">댓글 작성</button>
+        </form>
+      </div>
+    {% else %}
+        <p> 댓글을 작성하려면 로그인이 필요합니다. </p>
+    {% endif %}
+
+    {% for comment in comments %}
+      <div class="comment">
+        <p>{{ comment.content }}</p>
+        <p>작성자: {{ comment.author }} | 수정일: {{ comment.dt_updated }}</p>
+      </div>
+    {% endfor %}
+
+      <div class="btn">
+        <div class="btn_list"><a href={% url 'post-list' %}>목록으로</a></div>
+
+          {% if user.is_authenticated and user == post.author %}
+            <div class="btn_modify"><a href="{% url 'post-update' post.id %}">수정하기</a></div>
+            <div class="btn_delete"><a href="{% url 'post-delete' post.id %}">삭제하기</a></div>
+          {% endif %}
+
+      </div>
+
+{% endblock content %}
